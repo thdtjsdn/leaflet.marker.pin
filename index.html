@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+		<title>leaflet.marker.pin by wwwouaiebe</title>
+		<meta name="author" content="Christian Guyette" />
+		<link rel="stylesheet" href="leaflet.css" />
+		<link rel="stylesheet" href="L.Marker.Pin.css" />
+		<link rel="stylesheet" href="index.css" />
+	</head>
+	<body>
+		<header>
+			<nav id="Menu">
+				<div id="Help" class="MenuItem">
+					<a>Help</a>
+					<div id="Help">
+						<h3>Add a pin</h3>
+						<p>
+							Click on the map with the left or right mouse button and complete the dialog box with your data. Finish with the OK button.
+						</p>
+						<h3>View a pin content</h3>
+						<p>
+							Click on the pin with the left mouse button.
+						</p>
+						<h3>Edit a pin content</h3>
+						<p>
+							Click on the pin with the right mouse button, choose 'Edit this pin' in the context menu and change your data.
+						</p>
+						<h3>Remove a pin</h3>
+						<p>
+							Click on the pin with the right mouse button and choose 'Delete this pin'.
+						</p>
+						<h3>Move a pin</h3>
+						<p>
+							Drag and drop the pin on the map.
+						</p>
+						<h3>Save the pins</h3>
+						<p>
+							In this sample the pins are saved in the search part of the page url. Look the URL when you add, edit, delete or remove a pin.
+						</p>
+						<h3>Restore the pins</h3>
+						<p>
+							Copy the URL in the address bar and paste it in a new window. Pins are restored on the map.
+						</p>
+					</div>
+				</div>
+				<div id="View" class="MenuItem">
+					<a href="https://github.com/wwwouaiebe/leaflet.marker.pin">View On GitHub</a>
+				</div>
+				<div id="Download" class="MenuItem">
+					Download:
+				</div>
+				<div class="MenuItem">
+					<a href="https://github.com/wwwouaiebe/leaflet.marker.pin/zipball/master">ZIP</a>
+				</div>
+				<div class="MenuItem">
+					<a href="https://github.com/wwwouaiebe/leaflet.marker.pin/tarball/master">TAR</a>
+				</div>
+			</nav>
+		</header>
+		<div id="Map">
+		</div>
+		<script src="leaflet.js"></script>
+		<script src="L.Marker.Pin.min.js"></script>
+		<script>
+			(function() 
+			{
+				'use strict';
+
+				var myInterface = L.marker.pin.interface ( );
+				
+				myInterface.UserLanguage = 'en';
+				myInterface.addDefaultCategories ( );
+				myInterface.setCallbackFunction ( function ( ) { history.pushState ( { index : "bar" } , "page", '?pin=' + myInterface.stringifyPins ( ) );} );
+
+				var Map = L.map ( 'Map' ).setView( [ 50.49680, 5.51116 ], 13 );
+				L.tileLayer ( 'http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" title="Contributeurs de OpenStreetMap">Contributeurs de OpenStreetMap</a> | &copy; <a href="http://www.ouaie.be/" title="http://www.ouaie.be/">Christian Guyette</a>' } ).addTo ( Map );
+				Map.on ( 'click', function ( Event ) { myInterface.newPin ( Map, Event.latlng )} );
+				Map.on ( 'contextmenu', function ( Event ) {myInterface.newPin ( Map, Event.latlng )} );
+
+				var Search = decodeURI ( window.location.search );
+				if ( 0 <= Search.indexOf ( 'pin=' ) ) { myInterface.parsePins ( Search.substr ( Search.indexOf ( 'pin=' ) + 4 ), Map );}
+			}
+			());		
+		</script>
+	</body>
+</html>
