@@ -1,0 +1,44 @@
+.PinMenu >div,
+.PinEditDialog > div
+{
+	background-color: rgb(240,240,240);
+	border-radius: 0;
+	border-style: solid;
+	border-width : 0.1em;
+	z-index: 9999;
+}
+.leaflet-container.leaflet-fade-anim > div.leaflet-map-pane > div.leaflet-objects-pane > div.leaflet-popup-pane > div.leaflet-popup.PinMenu.leaflet-zoom-animated > div.leaflet-popup-tip-container,
+.leaflet-container.leaflet-fade-anim > div.leaflet-map-pane > div.leaflet-objects-pane > div.leaflet-popup-pane > div.leaflet-popup.PinEditDialog.leaflet-zoom-animated > div.leaflet-popup-tip-container
+{
+	visibility: hidden;
+}
+div.PinEditDialog-MainDiv
+{
+	text-align: center;
+	font-weight: bold;
+	font-size: large;
+}
+div.PinEditDialog-MainDiv > div
+{
+	text-align: right;
+	padding: 1em;
+	font-weight: normal;
+	font-size: medium;
+}
+div.PinEditDialog-MainDiv > div > input,
+div.PinEditDialog-MainDiv > div > select
+{
+	width: 16em;
+}
+.PinEditDialog-OkButton,
+.PinEditDialog-CancelButton
+{
+	width: 8em;
+}
+.PinMenu-EditPinButton,
+.PinMenu-DeletePinButton,
+.PinMenu-CancelPinButton
+{
+	width: 200px;
+	display: block;
+}
