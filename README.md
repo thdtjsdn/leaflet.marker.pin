@@ -91,13 +91,13 @@ Notice that leaflet is not provided with this project. You have to download Leaf
 
 In the same way you have loaded leaflet, you have now to load leaflet.marker.pin.
 
-In the head of the html file you have to load the *Marker.Pin.css* style sheet...
+In the head of the html file you have to load the *L.Marker.Pin.css* style sheet...
 ```
-		<link rel="stylesheet" href="Marker.Pin.css" />
+		<link rel="stylesheet" href="L.Marker.Pin.css" />
 ```
-... and in the head or the body load the *Marker.Pin.min.js* JavaScript code.
+... and in the head or the body load the *L.Marker.Pin.min.js* JavaScript code.
 ```
-		<script src="Marker.Pin.min.js"></script>
+		<script src="L.Marker.Pin.min.js"></script>
 ```
 
 ## What's you have to do in your JavaScript?

@@ -6,9 +6,6 @@ module.exports = function(grunt) {
 		jshint: {
 			files: ['Gruntfile.js', 'src/**/*.js', 'tests/*.js'],
 		},
-
-
-
 		browserify: {
 			control: {
 				src: ['src/L.Marker.Pin.Interface.js'],
