@@ -2,25 +2,36 @@
   "name": "leaflet.marker.pin",
   "version": "1.1.0",
   "description": "Pins for Leaflet",
-  "main": "src/L.Marker.Pin.js",
+  "main": "src/L.Marker.Pin.Interface.js",
   "directories": {
     "test": "tests"
+  },
+  "dependencies": {
+    "leaflet": "^0.7.7"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "browserify": "^13.0.0",
+    "grunt-browserify": "^4.0.1",
+    "grunt-contrib-jshint": "^0.12.0",
+    "grunt-contrib-uglify": "^0.11.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Christian Guyette",
-  "license": "GPL-3.0",
-  "devDependencies": {
-    "browserify": "^13.0.0",
-    "grunt": "^0.4.5",
-    "grunt-browserify": "^4.0.1",
-    "grunt-contrib-jshint": "^0.11.3",
-    "grunt-contrib-uglify": "^0.11.0",
-    "jshint": "^2.9.1",
-    "uglify": "^0.1.5"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wwwouaiebe/leaflet.marker.pin.git"
   },
-  "dependencies": {
-    "leaflet": "^0.7.7"
-  }
+  "keywords": [
+    "Leaflet",
+    "Marker",
+    "Pin"
+  ],
+  "author": "Christian Guyette (wwwouaiebe)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/wwwouaiebe/leaflet.marker.pin/issues"
+  },
+  "homepage": "https://github.com/wwwouaiebe/leaflet.marker.pin#readme"
 }
