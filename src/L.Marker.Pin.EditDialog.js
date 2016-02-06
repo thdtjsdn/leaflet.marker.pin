@@ -186,7 +186,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			else {
 				Pins = L.marker.pin.pins ( );
 			}
-			Pins.push ( Pin );
+			var OldPos = Pins.push ( Pin );
 
 			// ... a popup and events are added to the pin ...
 			Pin.bindPopup ( Pin.getHtml ( ) ).addTo ( Map );
@@ -200,12 +200,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			}
 			Pin.on ( 'contextmenu', ContextMenu ); 
 			Pin.on ( 'dragend', Pins.CallbackFunction ); 
+			Pin.on ( 'remove', function (e) { console.log ( 'remove' ); } ); 
 
 			if ( options.exist ) {
 				// The dialog was open for edition. The old pin is 
 				// removed from the map and from the pin's collection
-				Pins.remove ( options.pinObject );
+				var NewPos = Pins.remove ( options.pinObject );
 				Map.removeLayer( options.pinObject );
+				Pins.order ( OldPos - 1, NewPos, false );
 			}
 		};
 

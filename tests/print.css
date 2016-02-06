@@ -1,0 +1,45 @@
+html > body > header
+{ 
+visibility: hidden
+}
+html > body > div#PinsContent
+{
+	position: relative;
+	page-break-before: always;
+	width: 100%; 
+	height: 100%; 
+	top: 0px; 
+	right: 0px; 
+	bottom: 0px; 
+	left: 0px;
+}
+.Pin-Print-Main
+{
+	width: 100%;
+}
+.Pin-Print-Pin
+{
+	margin-top: 1em;
+	padding: 1em;
+	border : solid;
+	border-width: 0.1em;
+	
+}
+.Pin-Print-Category
+{
+	margin-top: 1em;
+	font-weight: bold;
+	font-size: 125%;
+}
+.Pin-Print-Text,
+.Pin-Print-Address,
+.Pin-Print-Phone,
+.Pin-Print-Url
+{
+	margin-top: 1em;
+	overflow: hidden;
+}
+.PinControl-MainDiv
+{
+	visibility: hidden;
+}

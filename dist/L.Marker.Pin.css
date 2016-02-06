@@ -42,3 +42,46 @@ div.PinEditDialog-MainDiv > div > select
 	width: 200px;
 	display: block;
 }
+.PinControl-MainDiv
+{
+	background-color: gainsboro;
+	width: auto;
+	height : auto;	
+}
+.PinControl-Pins
+{
+	width: auto;
+	min-width: 20em;
+	max-width: 35em;
+	height: auto;
+	max-height: 400px;
+	overflow: auto;
+	background-color : white;
+	border-style : solid;
+	border-width : 0.1em;
+	margin: 0.5em;
+}
+.PinControl-Buttons
+{
+	background-color : white;
+	border-style : solid;
+	border-width : 0.1em;
+	margin: 0.5em;
+	text-align: center;
+}
+
+.PinControl-Pin
+{
+	padding: 1em;
+	border-bottom-style: solid;
+	border-bottom-width: 0.01em;
+}
+.PinControl-Pin:hover
+{
+	background-color : 	lightblue;
+}
+
+.PinControl-Button
+{
+	margin: 0.3em
+}

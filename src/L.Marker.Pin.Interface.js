@@ -69,6 +69,15 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 			/* --- public methods --- */
+
+			addControl : function ( Map, options ) {
+				if ( typeof module !== 'undefined' && module.exports ) {
+					Map.addControl ( require ('./L.Marker.Pin.Control' ) ( options ) );
+				}
+				else {
+					Map.addControl ( L.marker.pin.control ( options ) );
+				}
+			},
 			
 		
 			/* 
@@ -163,7 +172,44 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			addTranslation : function ( TextId, UserLanguage, Translation ) {
 				return _Translator.addTranslation ( TextId, UserLanguage, Translation );
 			},
+
+			/* 
+			--- addTranslations ( TextId, Translations ) method --- 
 			
+			This method add a translation for a text in multiple languages.
+			
+			Parameters:
+			- TextId : the unique identifier of the text.
+			- Translations : the translated text. Must be an object like  { 'fr' : 'Rue', 'nl' : 'Straat', 'en' : 'Street' }.
+
+			Return value:
+			- returns true when the text is added.
+			- returns false when the TextId is already used.
+			
+			*/
+
+			addTranslations : function ( TextId, Translations ) {
+				return _Translator.addTranslations ( TextId, Translations );
+			},
+			/* 
+			--- getText ( TextId ) method --- 
+			
+			This method gives the text identified by TextId in the current user language.
+			
+			Parameters : 
+			- TextId : a unique identifier for the asked text
+			
+			Return :
+			- the text identified by TextId in the current user language when found
+			- the text identified by TextId in 'en' when not found in the current user language
+			- '???' when the text identified by TextId when not found in the current user language or 'en'
+			- '???' when TextId is not found
+			*/
+
+			getText : function ( TextId ) {
+				return _Translator.getText ( TextId );
+			},
+
 			/* 
 			--- setCallbackFunction ( CallbackFunction ) method --- 
 			
@@ -205,7 +251,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			The relase number - read only
 
 			*/
-			get Release ( ) { return '1.1.0'; },
+			get Release ( ) { return '1.2.0'; },
 
 			/* 
 			--- UserLanguage  ---
@@ -219,6 +265,27 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				_Translator.UserLanguage = newUserLanguage ;
 				_Categories.sort ( );
 			},
+			
+			get PinsHtmlElement ( ) {
+				return _Pins.asHtmlElement (
+					{ 
+						mainElement : 'div',
+						mainClass : "Pin-Print-Main" , 
+						pinElement : 'div',
+						pinClass : "Pin-Print-Pin" , 
+						categoryElement : 'div',
+						categoryClass : "Pin-Print-Category" , 
+						textElement : 'div',
+						textClass : "Pin-Print-Text" , 
+						addressElement : 'div',
+						addressClass : "Pin-Print-Address" , 
+						phoneElement : 'div',
+						phoneClass : "Pin-Print-Phone" , 
+						urlElement : 'div',
+						urlClass : "Pin-Print-Url" , 
+					}
+				);
+			}
 		};
 	};
 

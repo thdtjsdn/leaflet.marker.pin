@@ -47,8 +47,173 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	*/
 
 	L.Marker.Pin.getPins = function () {
+		
+		/* --- private properties --- */
+		
+		var _Translator;
+		if ( typeof module !== 'undefined' && module.exports ) {
+			_Translator = require ('./L.Marker.Pin.Translator' );
+		}
+		else {
+			_Translator = L.marker.pin.translator ( );
+		}
+		
+		var _asHtmlElement = function ( options ) {
+
+			if ( ! options.mainElement ) { options.mainElement = 'div'; }
+			if ( ! options.pinElement ) { options.pinElement = 'div'; }
+			if ( ! options.categoryElement ) { options.categoryElement = 'div'; }
+			if ( ! options.textElement ) { options.textElement = 'div'; }
+			if ( ! options.addressElement ) { options.addressElement = 'div'; }
+			if ( ! options.phoneElement ) { options.phoneElement = 'div'; }
+			if ( ! options.urlElement ) { options.urlElement = 'div'; }
+			if ( ! options.urlCut ) { options.urlCut = 99999; }
+
+			var MainElement = document.createElement ( options.mainElement );
+			if ( options.mainClass ) {
+				MainElement.className = options.mainClass;
+			}
+			
+			for ( var Counter = 0; Counter < _Pins.length; Counter++ ) {
+				var Pin = _Pins [ Counter ];
+
+				var PinElement = document.createElement ( options.pinElement );
+				if ( options.pinClass ) {
+					PinElement.className = options.pinClass;
+				}
+				PinElement.draggable = true;
+				PinElement.dataset.pinRange = Counter.toString ( );
+
+				L.DomEvent.on ( 
+					PinElement, 
+					'dragover', 
+					function ( Event ) 
+					{ 
+						Event.preventDefault ( );
+					}
+				);
+
+				var CategoryImgElement = document.createElement ( 'img' );
+				CategoryImgElement.setAttribute ( 'src', Pin.options.pinCategory.CategoryIcon.options.iconUrl );
+				CategoryImgElement.draggable = false;
+				if ( options.categoryImgClass ) {
+					CategoryImgElement.className = options.categoryImgClass;
+				}
+				PinElement.appendChild ( CategoryImgElement );
+
+				var CategoryElement = document.createElement ( options.categoryElement );
+				if ( options.categoryClass ) {
+					CategoryElement.className = options.categoryClass;
+				}
+				
+				var CategoryNode = document.createTextNode ( Pin.options.pinCategory.CategoryName );
+				CategoryElement.appendChild ( CategoryNode );
+				PinElement.appendChild ( CategoryElement );
+				
+				if ( Pin.options.text && 0 < Pin.options.text.length )
+				{
+					var TextElement = document.createElement ( options.textElement );
+					if ( options.textClass ) {
+						TextElement.className = options.textClass;
+					}
+					var TextNode = document.createTextNode ( Pin.options.text );
+					TextElement.appendChild ( TextNode );
+					PinElement.appendChild ( TextElement );
+				}
+
+				if ( Pin.options.address && 0 < Pin.options.address.length )
+				{
+					var AddressElement = document.createElement ( options.addressElement );
+					if ( options.addressClass ) {
+						AddressElement.className = options.addressClass;
+					}
+					var AddressNode = document.createTextNode ( _Translator.getText ( 'L.Marker.Pin.Pins.asHtmlElement.Address' ) + Pin.options.address );
+					AddressElement.appendChild ( AddressNode );
+					PinElement.appendChild ( AddressElement );
+				}
+
+				if ( Pin.options.phone && 0 < Pin.options.phone.length )
+				{
+					var PhoneElement = document.createElement ( options.phoneElement );
+					if ( options.phoneClass ) {
+						PhoneElement.className = options.phoneClass;
+					}
+					var PhoneNode = document.createTextNode ( _Translator.getText ( 'L.Marker.Pin.Pins.asHtmlElement.Phone' ) + Pin.options.phone );
+					PhoneElement.appendChild ( PhoneNode );
+					PinElement.appendChild ( PhoneElement );
+				}
+
+				if ( Pin.options.url && 0 < Pin.options.url.length )
+				{
+					var UrlElement = document.createElement ( options.urlElement );
+					if ( options.urlClass ) {
+						UrlElement.className = options.urlClass;
+					}
+					var UrlNode = document.createTextNode ( _Translator.getText ( 'L.Marker.Pin.Pins.asHtmlElement.Url' ) );
+					UrlElement.appendChild ( UrlNode );
+					var UrlAnchorElement = document.createElement ( 'a' );
+					var urlText = Pin.options.url;
+					if ( urlText.length > options.urlCut ) {
+						urlText = urlText.slice ( 0, options.urlCut ) + ' ...';
+					}
+						
+					var UrlAnchorNode = document.createTextNode ( urlText );
+					UrlAnchorElement.appendChild ( UrlAnchorNode );
+					UrlAnchorElement.setAttribute ( 'href', Pin.options.url );
+					UrlAnchorElement.setAttribute ( 'title', Pin.options.url );
+					UrlElement.appendChild ( UrlAnchorElement );
+					PinElement.appendChild ( UrlElement );
+				}
+				MainElement.appendChild ( PinElement );
+			}
+
+			return MainElement;
+		};
+
+		/* --- private methods --- */
+
+		/* 
+		--- _updateControl ( ) method --- 
+		
+		*/
+		
+		var _updateControl = function ( ) {
+		
+			if ( document.getElementById ) {
+				var MaindivElement = document.getElementById ( 'PinControl-MainDiv' );
+				var OldPinsElement = document.getElementById ( 'PinControl-Pins' );
+				if ( MaindivElement && OldPinsElement )
+				{
+					var NewPinsElement = _asHtmlElement ( 
+						{ 
+							mainElement : 'div',
+							mainClass : "PinControl-Pins" , 
+							pinElement : 'div',
+							pinClass : "PinControl-Pin" , 
+							categoryElement : 'div',
+							categoryClass : "PinControl-Category" , 
+							CategoryImgElement : "div",
+							CategoryImgClass : "PinControl-Category-Img",
+							textElement : 'div',
+							textClass : "PinControl-Text" , 
+							addressElement : 'div',
+							addressClass : "PinControl-Address" , 
+							phoneElement : 'div',
+							phoneClass : "PinControl-Phone" , 
+							urlElement : 'div',
+							urlClass : "PinControl-Url" , 
+							urlCut : 50
+						}
+					);
+					NewPinsElement.id = 'PinControl-Pins';
+					
+					MaindivElement.replaceChild ( NewPinsElement, OldPinsElement );
+				}
+			}
+		};
+		
 		return {
-	
+				
 			/* --- public methods --- */
 			
 			/* 
@@ -85,6 +250,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				Pin.options.pinId = _NextPinId++;
 				_Pins.push ( Pin );
 				this.CallbackFunction ( );
+				_updateControl ( );
+				
+				return _Pins.length - 1;
 			},
 
 			/* 
@@ -103,11 +271,68 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					if ( _Pins [ Counter ].options.pinId === Pin.options.pinId ) {
 						_Pins.splice ( Counter, 1 );
 						this.CallbackFunction ( );
-						break;
+						_updateControl ( );
+						
+						return Counter;
 					}
 				}
+				
+				return -1;
 			},
 
+			order : function ( OldPos, NewPos, AfterNewPos ) {
+				OldPos = parseInt ( OldPos );
+				NewPos = parseInt ( NewPos );
+				if ( AfterNewPos ) {
+					NewPos = NewPos + 1;
+				}
+				if ( OldPos > _Pins.length - 1 ) {
+					return;
+				}
+				if ( NewPos > _Pins.length ) {
+					return;
+				}
+				if ( OldPos === NewPos ) {
+					return;
+				}
+				var CurrentPos = 0;
+				var NewPins = [];
+				for ( var Counter = 0; Counter < _Pins.length; Counter++ ) {
+					if ( Counter === OldPos ) {
+					}
+					else if ( Counter === NewPos ) {
+						NewPins [ CurrentPos ] = _Pins [ OldPos ];
+						CurrentPos++;
+						NewPins [ CurrentPos ] = _Pins [ Counter ];
+						CurrentPos++;
+					}
+					else {
+						NewPins [ CurrentPos ] = _Pins [ Counter ];
+						CurrentPos++;
+					}
+				}
+				if ( NewPos === _Pins.length ) {
+					NewPins [ _Pins.length - 1 ] = _Pins [ OldPos ];
+				}
+				_Pins = NewPins;
+				this.CallbackFunction ( );
+				_updateControl ( );
+			},
+			
+			zoomTo : function ( PinRange ) {
+				var Pin = _Pins [ PinRange ];
+				Pin.options.map.setView ( Pin.getLatLng ( ), 17);
+			},
+			
+			get LatLngBounds ( ) {
+				var PinsLatLng = [];
+				for ( var Counter = 0; Counter < _Pins.length; Counter++) {
+					PinsLatLng.push ( _Pins [ Counter ].getLatLng ( ) );
+					 
+				}
+				
+				return L.latLngBounds(  PinsLatLng ); 
+			},
 			/* 
 			--- stringify ( ) method --- 
 			
@@ -204,7 +429,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					Pin.on ( 'contextmenu', ContextMenu ); 
 					Pin.on ( 'dragend', this.CallbackFunction ); 
 				}
+				_updateControl ( );
 			},
+			asHtmlElement : function ( options ) {
+				return _asHtmlElement ( options );
+			}
 		};
 	};
 	

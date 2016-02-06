@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 			*/
 		
-			getHtml : function () {
+			getHtml : function ( ) {
 				var _Translator;
 				if ( typeof module !== 'undefined' && module.exports ) {
 					_Translator = require ('./L.Marker.Pin.Translator' );
@@ -91,7 +91,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 						_Translator.getText ( 'L.Marker.Pin.Link' ) +
 						'&nbsp: <a href="' +
 						this.options.url + '">' +
-						this.options.url +'</a>';
+						this.options.url.slice ( 0, 50 ) +'</a>';
 				}
 				return HtmlText;
 			}

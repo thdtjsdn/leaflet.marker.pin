@@ -134,6 +134,24 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			'en' : 'Cancel',
 			'nl' : 'Annuleren'
 		},
+		'L.Marker.Pin.Pins.asHtmlElement.Address' :
+		{
+			'fr' : 'Adresse: ',
+			'en' : 'Address: ',
+			'nl' : 'Adres: ',
+		},
+		'L.Marker.Pin.Pins.asHtmlElement.Phone' :
+		{
+			'fr' : 'Téléphone: ',
+			'en' : 'Phone: ',
+			'nl' : 'Telefoon: ',
+		},
+		'L.Marker.Pin.Pins.asHtmlElement.Url' :
+		{
+			'fr' : 'Lien: ',
+			'en' : 'Link: ',
+			'nl' : 'Link: ',
+		}
 	};
 
 	L.Marker.Pin.getTranslator = function ( ) {
@@ -153,7 +171,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			Return :
 			- the text identified by TextId in the current user language when found
 			- the text identified by TextId in 'en' when not found in the current user language
-			- '???' when the text identified by TextId when not found in the current user language or 'en'
+			- '???' when the text identified by TextId is not found in the current user language or 'en'
 			- '???' when TextId is not found
 			*/
 

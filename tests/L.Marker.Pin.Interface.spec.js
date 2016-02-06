@@ -8,8 +8,8 @@ describe ( "L.Marker.Pin.Interface tests - Warning : test order is important!", 
 
 	/* get Release ( ) tests */
 	
-	it ( "02 - myInterface.Release return '1.1.0'", function ( ) {
-		expect( myInterface.Release ).toBe ( '1.1.0' );
+	it ( "02 - myInterface.Release return '1.2.0'", function ( ) {
+		expect( myInterface.Release ).toBe ( '1.2.0' );
 	} );
 
 	/* get UserLanguage ( ) and set UserLanguage ( newUserLanguage ) tests */
@@ -84,18 +84,44 @@ describe ( "L.Marker.Pin.Interface tests - Warning : test order is important!", 
 		expect( L.marker.pin.translator ( ).getText ( 'L.Marker.Pin.Address' ) ).toBe ( 'Anschrift' );
 	} );
 	
-	xit ( "13 - myInterface.setCallbackFunction cannot be currently tested in the Unit tests", function ( ) {
+	/* getText and addTranslations tests */
+	
+	it ( "13 - myInterface.getText ( 'myTree' ) return '???'", function ( ) {
+		expect( myInterface.getText ( 'myTree' ) ).toBe (  '???' );
+	} );
+	it ( "14 - myInterface.addTranslations ( 'myTree', {'fr' : 'Arbre', 'en' : 'Tree', 'nl' : 'Boom'} ) ) return true", function ( ) {
+		expect ( myInterface.addTranslations ( 'myTree', {'fr' : 'Arbre', 'en' : 'Tree', 'nl' :'Boom'} ) ).toBeTruthy ( );
+	} );
+	it ( "15 - myInterface.addTranslations ( 'myTree', {'fr' : 'Arbre', 'en' : 'Tree', 'nl' : 'Boom'} ) ) return false when executed twice", function ( ) {
+		expect ( myInterface.addTranslations ( 'myTree', {'fr' : 'Arbre', 'en' : 'Tree', 'nl' :'Boom'} ) ).toBeFalsy ( );
+	} );
+	it ( "16 - myInterface.getText ( 'myTree' ) return 'Arbre' after running myInterface.UserLanguage = 'fr'", function ( ) {
+		myInterface.UserLanguage = 'fr';
+		expect( myInterface.getText ( 'myTree' ) ).toBe (  'Arbre' );
+	} );
+	it ( "17 - myInterface.getText ( 'myTree' ) return 'Boom' after running myInterface.UserLanguage = 'nl'", function ( ) {
+		myInterface.UserLanguage = 'nl';
+		expect( myInterface.getText ( 'myTree' ) ).toBe (  'Boom' );
+	} );
+	it ( "18 - myInterface.getText ( 'myTree' ) return 'Tree' after running myInterface.UserLanguage = 'en'", function ( ) {
+		myInterface.UserLanguage = 'en';
+		expect( myInterface.getText ( 'myTree' ) ).toBe (  'Tree' );
+	} );
+	it ( "19 - myInterface.getText ( 'myTree' ) return 'Tree' after running myInterface.UserLanguage = 'de'", function ( ) {
+		myInterface.UserLanguage = 'de';
+		expect( myInterface.getText ( 'myTree' ) ).toBe (  'Tree' );
+	} );
+	
+	xit ( "20 - myInterface.setCallbackFunction cannot be currently tested in the Unit tests", function ( ) {
 		fail("myInterface.setCallbackFunction cannot be currently tested in the Unit tests");
 	} );
 
-	xit ( "14 - myInterface.stringifyPins cannot be currently tested in the Unit tests", function ( ) {
+	xit ( "21 - myInterface.stringifyPins cannot be currently tested in the Unit tests", function ( ) {
 		fail("myInterface.stringifyPins cannot be currently tested in the Unit tests");
 	} );
 
-	xit ( "15 - myInterface.parsePins cannot be currently tested in the Unit tests", function ( ) {
+	xit ( "22 - myInterface.parsePins cannot be currently tested in the Unit tests", function ( ) {
 		fail("myInterface.parsePins cannot be currently tested in the Unit tests");
 	} );
-	
-				
 	
 } );

@@ -1,3 +1,7 @@
+# Warning
+
+The files in this branch are under development. Unstable version !!!
+
 # leaflet.marker.pin
 
 Pins for leaflet are markers that can be added, edited or deleted directly on the map from the web page. 
@@ -118,6 +122,10 @@ For others languages than fr, nl or en, use first the addTranslation ( ) method 
 L.marker.pin.interface ( ).addTranslation ( 'L.Marker.Pin.Address',  'de', 'Lorem ipsum...' );
 ```
 
+### Using addTranslations and getText to translate messages outside L.marker.pin
+
+You can use the translation mechanism in L.marker.pin to translate others messages used in your own code.
+
 ### Categories
 
 You have also to say with witch categories you will work. 27 categories are currently defined, but perhaps you are not happy 
@@ -212,7 +220,6 @@ Return value:
 
 - returns true when the message is added, false otherwise. When false is returned an error message is also displayed in the JavaScript console
 
-
 Unique identifiers currently used:
 
 - for the popup: 'L.Marker.Pin.Address', 'L.Marker.Pin.Phone' and 'L.Marker.Pin.Link'
@@ -248,6 +255,36 @@ Sample of translation to a new language:
 	// ... to 27...
 	L.marker.pin.interface ( ).addTranslation ( 'L.Marker.Pin.Category.27', 'de', 'Lorem ipsum...' );	
 ```
+
+### addTranslations ( TextId, Translations ) method
+
+Parameters:
+
+Parameters:
+
+- TextId : the unique identifier of the text.
+- Translations : the translated text. Must be an object like  { 'fr' : 'Rue', 'nl' : 'Straat', 'en' : 'Street' }.
+
+Return value:
+
+- returns true when the text is added.
+- returns false when the TextId is already used.
+
+### getText( TextId ) method
+
+This method gives in the user language a text identified by the TextId parameter.
+
+Parameters:
+
+- TextId : the unique identifier of the text
+
+Return value:
+
+- the text identified by TextId in the current user language when found
+- the text identified by TextId in 'en' when not found in the current user language
+- '???' when the text identified by TextId is not found in the current user language or 'en'
+- '???' when TextId is not found
+
 
 ### newPin ( Map, Latlng ) method
 

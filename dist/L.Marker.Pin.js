@@ -219,7 +219,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	
 } ) ( );
 
-},{"./L.Marker.Pin.Category":2,"./L.Marker.Pin.Translator":7}],2:[function(require,module,exports){
+},{"./L.Marker.Pin.Category":2,"./L.Marker.Pin.Translator":8}],2:[function(require,module,exports){
 /*
 Copyright - 2015 2016 - Christian Guyette - Contact: http//www.ouaie.be/
 
@@ -335,7 +335,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		
 } ) ( );
 
-},{"./L.Marker.Pin.Translator":7}],3:[function(require,module,exports){
+},{"./L.Marker.Pin.Translator":8}],3:[function(require,module,exports){
 /*
 Copyright - 2015 2016 - Christian Guyette - Contact: http//www.ouaie.be/
 
@@ -473,7 +473,185 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	/* --- End of L.Marker.Pin.ContextMenu object --- */
 	
 } ) ( );
-},{"./L.Marker.Pin.EditDialog":4,"./L.Marker.Pin.Pins":6,"./L.Marker.Pin.Translator":7}],4:[function(require,module,exports){
+},{"./L.Marker.Pin.EditDialog":5,"./L.Marker.Pin.Pins":7,"./L.Marker.Pin.Translator":8}],4:[function(require,module,exports){
+/*
+Copyright - 2015 2016 - Christian Guyette - Contact: http//www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the 
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+( function ( ) {
+
+	'use strict';
+
+	/*
+	--- L.Marker.Pin.Control object ----------------------------------------------------------------------------------------
+	
+	This object extends ...
+
+	Doc not reviewed
+	No automated unit tests for this object
+
+	------------------------------------------------------------------------------------------------------------------------
+	*/
+
+	var _DraggedPinRange = '0';
+
+	var _Pins;
+	if ( typeof module !== 'undefined' && module.exports ) {
+		_Pins = require ('./L.Marker.Pin.Pins' );
+	}
+	else {
+		_Pins = L.marker.pin.pins ( );
+	}
+	
+	var _Map;
+	
+	var _onClick = function ( Event ) 
+	{ 
+		Event.stopPropagation ( );
+	};
+
+	var _onDblClick = function ( Event ) 
+	{ 
+		var SelectedElement = Event.target;
+		while ( SelectedElement && ( SelectedElement.className !== 'PinControl-Pin' ) ) {
+			SelectedElement = SelectedElement.parentNode;
+		}
+		if ( SelectedElement ) {
+			var Pin = _Pins.zoomTo ( SelectedElement.dataset.pinRange );
+		}
+		Event.stopPropagation ( );
+	};
+
+	var _onDragStart = function ( Event ) 
+	{ 
+		try {
+			Event.dataTransfer.setData ( 'PinRange', Event.target.dataset.pinRange );
+		}
+		catch ( e ) {
+		}
+		_DraggedPinRange = Event.target.dataset.pinRange;
+		Event.stopPropagation ( );
+	};
+
+	var _onDragEnd = function ( Event ) 
+	{ 
+		Event.stopPropagation ( );
+	};
+	
+	var _onMouseDown = function ( Event ) 
+	{ 
+		Event.stopPropagation ( );
+	};
+	
+	var _onDrop = function ( Event ) 
+	{ 
+		var SelectedElement = Event.target;
+		while ( SelectedElement && ( SelectedElement.className !== 'PinControl-Pin' ) ) {
+			SelectedElement = SelectedElement.parentNode;
+		}
+		var DroppedPinRange;
+		if (  SelectedElement && SelectedElement.className === 'PinControl-Pin' ) {
+			DroppedPinRange =  SelectedElement.dataset.pinRange;
+			if (  ( Event.clientY - SelectedElement.getBoundingClientRect().top ) < ( SelectedElement.getBoundingClientRect().bottom - Event.clientY ) ) {
+				_Pins.order ( _DraggedPinRange, DroppedPinRange, false );
+			}
+			else {
+				_Pins.order ( _DraggedPinRange, DroppedPinRange, true );
+			}
+		}
+		Event.stopPropagation ( );
+	};
+	
+	var _onClickZoomBounds = function ( Event ) 
+	{ 
+		var ZoomBounds = _Pins.LatLngBounds;
+		if ( ZoomBounds.isValid ( ) ) {
+			_Map.fitBounds ( ZoomBounds );
+		}
+		Event.stopPropagation ( );
+	};
+
+	var _onClickMinMax = function ( Event ) 
+	{ 
+		var PinsElement = document.getElementById ( 'PinControl-Pins' );
+		if ( PinsElement.style.visibility === "hidden" ) {
+			PinsElement.setAttribute("style", "visibility : visible; width: auto; min-width: 20em; height: auto; margin: 0.5em;" );
+			Event.target.setAttribute ( 'src' , 'L.Marker.Pin.img/minimize.png' );
+		}
+		else {
+			PinsElement.setAttribute("style", "visibility : hidden; width: 0; min-width: 0; height: 0; margin: 0;" );
+			Event.target.setAttribute ( 'src' , 'L.Marker.Pin.img/maximize.png' );
+		}
+		Event.stopPropagation ( );
+	};
+	
+	L.Marker.Pin.Control = L.Control.extend ( {
+			options : {
+				position: 'topright'
+			},
+		initialize: function ( options ) {
+				L.Util.setOptions( this, options );
+			},
+		onAdd : function ( Map ) {
+				_Map = Map;
+				
+				var MainDiv = L.DomUtil.create ( 'div', 'PinControl-MainDiv' );
+				MainDiv.id = 'PinControl-MainDiv';
+
+				var PinsDiv = L.DomUtil.create ( 'div', 'PinControl-Pins', MainDiv );
+				PinsDiv.id = 'PinControl-Pins';
+
+				L.DomEvent.on ( MainDiv, 'click', _onClick );
+				L.DomEvent.on ( MainDiv, 'dblclick', _onDblClick );
+				L.DomEvent.on ( MainDiv, 'dragstart', _onDragStart );
+				L.DomEvent.on (	MainDiv, 'dragend', _onDragEnd );
+				L.DomEvent.on ( MainDiv, 'mousedown', _onMouseDown );
+				L.DomEvent.on ( MainDiv, 'drop', _onDrop );
+				
+				var ButtonsDiv = L.DomUtil.create ( 'div', 'PinControl-Buttons', MainDiv );
+
+				var ZoomBoundsButton = L.DomUtil.create ( 'img', 'PinControl-Button', ButtonsDiv );
+				ZoomBoundsButton.setAttribute ( 'src' , 'L.Marker.Pin.img/zoombounds.png' );
+				ZoomBoundsButton.id = 'PinControl-ZoomBoundsButton';
+				L.DomEvent.on ( ZoomBoundsButton, 'click', _onClickZoomBounds );
+
+				var MinMaxButton = L.DomUtil.create ( 'img', 'PinControl-Button', ButtonsDiv );
+				MinMaxButton.setAttribute ( 'src' , 'L.Marker.Pin.img/minimize.png' );
+				MinMaxButton.id = 'PinControl-MinMaxButton';
+				L.DomEvent.on ( MinMaxButton, 'click', _onClickMinMax );
+								
+				return MainDiv;
+			}
+		}
+	);
+	
+	L.marker.pin.control = function ( options ) 
+	{
+		return new L.Marker.Pin.Control ( options );
+	};		
+	
+	if ( typeof module !== 'undefined' && module.exports ) {
+		module.exports = L.marker.pin.control;
+	}
+
+	/* --- End of L.Marker.Pin.Control object --- */
+	
+} ) ( );
+},{"./L.Marker.Pin.Pins":7}],5:[function(require,module,exports){
 /*
 Copyright - 2015 2016 - Christian Guyette - Contact: http//www.ouaie.be/
 
@@ -662,7 +840,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			else {
 				Pins = L.marker.pin.pins ( );
 			}
-			Pins.push ( Pin );
+			var OldPos = Pins.push ( Pin );
 
 			// ... a popup and events are added to the pin ...
 			Pin.bindPopup ( Pin.getHtml ( ) ).addTo ( Map );
@@ -676,12 +854,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			}
 			Pin.on ( 'contextmenu', ContextMenu ); 
 			Pin.on ( 'dragend', Pins.CallbackFunction ); 
+			Pin.on ( 'remove', function (e) { console.log ( 'remove' ); } ); 
 
 			if ( options.exist ) {
 				// The dialog was open for edition. The old pin is 
 				// removed from the map and from the pin's collection
-				Pins.remove ( options.pinObject );
+				var NewPos = Pins.remove ( options.pinObject );
 				Map.removeLayer( options.pinObject );
+				Pins.order ( OldPos - 1, NewPos, false );
 			}
 		};
 
@@ -883,7 +1063,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	/* --- End of L.Marker.Pin.EditDialog object --- */
 	
 } ) ( );
-},{"./L.Marker.Pin":8,"./L.Marker.Pin.Categories":1,"./L.Marker.Pin.ContextMenu":3,"./L.Marker.Pin.Pins":6,"./L.Marker.Pin.Translator":7}],5:[function(require,module,exports){
+},{"./L.Marker.Pin":9,"./L.Marker.Pin.Categories":1,"./L.Marker.Pin.ContextMenu":3,"./L.Marker.Pin.Pins":7,"./L.Marker.Pin.Translator":8}],6:[function(require,module,exports){
 /*
 Copyright - 2015 2016 - Christian Guyette - Contact: http//www.ouaie.be/
 
@@ -955,6 +1135,15 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 			/* --- public methods --- */
+
+			addControl : function ( Map, options ) {
+				if ( typeof module !== 'undefined' && module.exports ) {
+					Map.addControl ( require ('./L.Marker.Pin.Control' ) ( options ) );
+				}
+				else {
+					Map.addControl ( L.marker.pin.control ( options ) );
+				}
+			},
 			
 		
 			/* 
@@ -1049,7 +1238,44 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			addTranslation : function ( TextId, UserLanguage, Translation ) {
 				return _Translator.addTranslation ( TextId, UserLanguage, Translation );
 			},
+
+			/* 
+			--- addTranslations ( TextId, Translations ) method --- 
 			
+			This method add a translation for a text in multiple languages.
+			
+			Parameters:
+			- TextId : the unique identifier of the text.
+			- Translations : the translated text. Must be an object like  { 'fr' : 'Rue', 'nl' : 'Straat', 'en' : 'Street' }.
+
+			Return value:
+			- returns true when the text is added.
+			- returns false when the TextId is already used.
+			
+			*/
+
+			addTranslations : function ( TextId, Translations ) {
+				return _Translator.addTranslations ( TextId, Translations );
+			},
+			/* 
+			--- getText ( TextId ) method --- 
+			
+			This method gives the text identified by TextId in the current user language.
+			
+			Parameters : 
+			- TextId : a unique identifier for the asked text
+			
+			Return :
+			- the text identified by TextId in the current user language when found
+			- the text identified by TextId in 'en' when not found in the current user language
+			- '???' when the text identified by TextId when not found in the current user language or 'en'
+			- '???' when TextId is not found
+			*/
+
+			getText : function ( TextId ) {
+				return _Translator.getText ( TextId );
+			},
+
 			/* 
 			--- setCallbackFunction ( CallbackFunction ) method --- 
 			
@@ -1091,7 +1317,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			The relase number - read only
 
 			*/
-			get Release ( ) { return '1.1.0'; },
+			get Release ( ) { return '1.2.0'; },
 
 			/* 
 			--- UserLanguage  ---
@@ -1105,6 +1331,27 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				_Translator.UserLanguage = newUserLanguage ;
 				_Categories.sort ( );
 			},
+			
+			get PinsHtmlElement ( ) {
+				return _Pins.asHtmlElement (
+					{ 
+						mainElement : 'div',
+						mainClass : "Pin-Print-Main" , 
+						pinElement : 'div',
+						pinClass : "Pin-Print-Pin" , 
+						categoryElement : 'div',
+						categoryClass : "Pin-Print-Category" , 
+						textElement : 'div',
+						textClass : "Pin-Print-Text" , 
+						addressElement : 'div',
+						addressClass : "Pin-Print-Address" , 
+						phoneElement : 'div',
+						phoneClass : "Pin-Print-Phone" , 
+						urlElement : 'div',
+						urlClass : "Pin-Print-Url" , 
+					}
+				);
+			}
 		};
 	};
 
@@ -1120,7 +1367,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 }());
 
-},{"./L.Marker.Pin":8,"./L.Marker.Pin.Categories":1,"./L.Marker.Pin.EditDialog":4,"./L.Marker.Pin.Pins":6,"./L.Marker.Pin.Translator":7}],6:[function(require,module,exports){
+},{"./L.Marker.Pin":9,"./L.Marker.Pin.Categories":1,"./L.Marker.Pin.Control":4,"./L.Marker.Pin.EditDialog":5,"./L.Marker.Pin.Pins":7,"./L.Marker.Pin.Translator":8}],7:[function(require,module,exports){
 /*
 Copyright - 2015 2016 - Christian Guyette - Contact: http//www.ouaie.be/
 
@@ -1170,8 +1417,173 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	*/
 
 	L.Marker.Pin.getPins = function () {
+		
+		/* --- private properties --- */
+		
+		var _Translator;
+		if ( typeof module !== 'undefined' && module.exports ) {
+			_Translator = require ('./L.Marker.Pin.Translator' );
+		}
+		else {
+			_Translator = L.marker.pin.translator ( );
+		}
+		
+		var _asHtmlElement = function ( options ) {
+
+			if ( ! options.mainElement ) { options.mainElement = 'div'; }
+			if ( ! options.pinElement ) { options.pinElement = 'div'; }
+			if ( ! options.categoryElement ) { options.categoryElement = 'div'; }
+			if ( ! options.textElement ) { options.textElement = 'div'; }
+			if ( ! options.addressElement ) { options.addressElement = 'div'; }
+			if ( ! options.phoneElement ) { options.phoneElement = 'div'; }
+			if ( ! options.urlElement ) { options.urlElement = 'div'; }
+			if ( ! options.urlCut ) { options.urlCut = 99999; }
+
+			var MainElement = document.createElement ( options.mainElement );
+			if ( options.mainClass ) {
+				MainElement.className = options.mainClass;
+			}
+			
+			for ( var Counter = 0; Counter < _Pins.length; Counter++ ) {
+				var Pin = _Pins [ Counter ];
+
+				var PinElement = document.createElement ( options.pinElement );
+				if ( options.pinClass ) {
+					PinElement.className = options.pinClass;
+				}
+				PinElement.draggable = true;
+				PinElement.dataset.pinRange = Counter.toString ( );
+
+				L.DomEvent.on ( 
+					PinElement, 
+					'dragover', 
+					function ( Event ) 
+					{ 
+						Event.preventDefault ( );
+					}
+				);
+
+				var CategoryImgElement = document.createElement ( 'img' );
+				CategoryImgElement.setAttribute ( 'src', Pin.options.pinCategory.CategoryIcon.options.iconUrl );
+				CategoryImgElement.draggable = false;
+				if ( options.categoryImgClass ) {
+					CategoryImgElement.className = options.categoryImgClass;
+				}
+				PinElement.appendChild ( CategoryImgElement );
+
+				var CategoryElement = document.createElement ( options.categoryElement );
+				if ( options.categoryClass ) {
+					CategoryElement.className = options.categoryClass;
+				}
+				
+				var CategoryNode = document.createTextNode ( Pin.options.pinCategory.CategoryName );
+				CategoryElement.appendChild ( CategoryNode );
+				PinElement.appendChild ( CategoryElement );
+				
+				if ( Pin.options.text && 0 < Pin.options.text.length )
+				{
+					var TextElement = document.createElement ( options.textElement );
+					if ( options.textClass ) {
+						TextElement.className = options.textClass;
+					}
+					var TextNode = document.createTextNode ( Pin.options.text );
+					TextElement.appendChild ( TextNode );
+					PinElement.appendChild ( TextElement );
+				}
+
+				if ( Pin.options.address && 0 < Pin.options.address.length )
+				{
+					var AddressElement = document.createElement ( options.addressElement );
+					if ( options.addressClass ) {
+						AddressElement.className = options.addressClass;
+					}
+					var AddressNode = document.createTextNode ( _Translator.getText ( 'L.Marker.Pin.Pins.asHtmlElement.Address' ) + Pin.options.address );
+					AddressElement.appendChild ( AddressNode );
+					PinElement.appendChild ( AddressElement );
+				}
+
+				if ( Pin.options.phone && 0 < Pin.options.phone.length )
+				{
+					var PhoneElement = document.createElement ( options.phoneElement );
+					if ( options.phoneClass ) {
+						PhoneElement.className = options.phoneClass;
+					}
+					var PhoneNode = document.createTextNode ( _Translator.getText ( 'L.Marker.Pin.Pins.asHtmlElement.Phone' ) + Pin.options.phone );
+					PhoneElement.appendChild ( PhoneNode );
+					PinElement.appendChild ( PhoneElement );
+				}
+
+				if ( Pin.options.url && 0 < Pin.options.url.length )
+				{
+					var UrlElement = document.createElement ( options.urlElement );
+					if ( options.urlClass ) {
+						UrlElement.className = options.urlClass;
+					}
+					var UrlNode = document.createTextNode ( _Translator.getText ( 'L.Marker.Pin.Pins.asHtmlElement.Url' ) );
+					UrlElement.appendChild ( UrlNode );
+					var UrlAnchorElement = document.createElement ( 'a' );
+					var urlText = Pin.options.url;
+					if ( urlText.length > options.urlCut ) {
+						urlText = urlText.slice ( 0, options.urlCut ) + ' ...';
+					}
+						
+					var UrlAnchorNode = document.createTextNode ( urlText );
+					UrlAnchorElement.appendChild ( UrlAnchorNode );
+					UrlAnchorElement.setAttribute ( 'href', Pin.options.url );
+					UrlAnchorElement.setAttribute ( 'title', Pin.options.url );
+					UrlElement.appendChild ( UrlAnchorElement );
+					PinElement.appendChild ( UrlElement );
+				}
+				MainElement.appendChild ( PinElement );
+			}
+
+			return MainElement;
+		};
+
+		/* --- private methods --- */
+
+		/* 
+		--- _updateControl ( ) method --- 
+		
+		*/
+		
+		var _updateControl = function ( ) {
+		
+			if ( document.getElementById ) {
+				var MaindivElement = document.getElementById ( 'PinControl-MainDiv' );
+				var OldPinsElement = document.getElementById ( 'PinControl-Pins' );
+				if ( MaindivElement && OldPinsElement )
+				{
+					var NewPinsElement = _asHtmlElement ( 
+						{ 
+							mainElement : 'div',
+							mainClass : "PinControl-Pins" , 
+							pinElement : 'div',
+							pinClass : "PinControl-Pin" , 
+							categoryElement : 'div',
+							categoryClass : "PinControl-Category" , 
+							CategoryImgElement : "div",
+							CategoryImgClass : "PinControl-Category-Img",
+							textElement : 'div',
+							textClass : "PinControl-Text" , 
+							addressElement : 'div',
+							addressClass : "PinControl-Address" , 
+							phoneElement : 'div',
+							phoneClass : "PinControl-Phone" , 
+							urlElement : 'div',
+							urlClass : "PinControl-Url" , 
+							urlCut : 50
+						}
+					);
+					NewPinsElement.id = 'PinControl-Pins';
+					
+					MaindivElement.replaceChild ( NewPinsElement, OldPinsElement );
+				}
+			}
+		};
+		
 		return {
-	
+				
 			/* --- public methods --- */
 			
 			/* 
@@ -1208,6 +1620,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				Pin.options.pinId = _NextPinId++;
 				_Pins.push ( Pin );
 				this.CallbackFunction ( );
+				_updateControl ( );
+				
+				return _Pins.length - 1;
 			},
 
 			/* 
@@ -1226,11 +1641,68 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					if ( _Pins [ Counter ].options.pinId === Pin.options.pinId ) {
 						_Pins.splice ( Counter, 1 );
 						this.CallbackFunction ( );
-						break;
+						_updateControl ( );
+						
+						return Counter;
 					}
 				}
+				
+				return -1;
 			},
 
+			order : function ( OldPos, NewPos, AfterNewPos ) {
+				OldPos = parseInt ( OldPos );
+				NewPos = parseInt ( NewPos );
+				if ( AfterNewPos ) {
+					NewPos = NewPos + 1;
+				}
+				if ( OldPos > _Pins.length - 1 ) {
+					return;
+				}
+				if ( NewPos > _Pins.length ) {
+					return;
+				}
+				if ( OldPos === NewPos ) {
+					return;
+				}
+				var CurrentPos = 0;
+				var NewPins = [];
+				for ( var Counter = 0; Counter < _Pins.length; Counter++ ) {
+					if ( Counter === OldPos ) {
+					}
+					else if ( Counter === NewPos ) {
+						NewPins [ CurrentPos ] = _Pins [ OldPos ];
+						CurrentPos++;
+						NewPins [ CurrentPos ] = _Pins [ Counter ];
+						CurrentPos++;
+					}
+					else {
+						NewPins [ CurrentPos ] = _Pins [ Counter ];
+						CurrentPos++;
+					}
+				}
+				if ( NewPos === _Pins.length ) {
+					NewPins [ _Pins.length - 1 ] = _Pins [ OldPos ];
+				}
+				_Pins = NewPins;
+				this.CallbackFunction ( );
+				_updateControl ( );
+			},
+			
+			zoomTo : function ( PinRange ) {
+				var Pin = _Pins [ PinRange ];
+				Pin.options.map.setView ( Pin.getLatLng ( ), 17);
+			},
+			
+			get LatLngBounds ( ) {
+				var PinsLatLng = [];
+				for ( var Counter = 0; Counter < _Pins.length; Counter++) {
+					PinsLatLng.push ( _Pins [ Counter ].getLatLng ( ) );
+					 
+				}
+				
+				return L.latLngBounds(  PinsLatLng ); 
+			},
 			/* 
 			--- stringify ( ) method --- 
 			
@@ -1327,7 +1799,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					Pin.on ( 'contextmenu', ContextMenu ); 
 					Pin.on ( 'dragend', this.CallbackFunction ); 
 				}
+				_updateControl ( );
 			},
+			asHtmlElement : function ( options ) {
+				return _asHtmlElement ( options );
+			}
 		};
 	};
 	
@@ -1343,7 +1819,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 }) ( );	
 
-},{"./L.Marker.Pin.ContextMenu":3}],7:[function(require,module,exports){
+},{"./L.Marker.Pin.ContextMenu":3,"./L.Marker.Pin.Translator":8}],8:[function(require,module,exports){
 /*
 Copyright - 2015 2016 - Christian Guyette - Contact: http//www.ouaie.be/
 
@@ -1480,6 +1956,24 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			'en' : 'Cancel',
 			'nl' : 'Annuleren'
 		},
+		'L.Marker.Pin.Pins.asHtmlElement.Address' :
+		{
+			'fr' : 'Adresse: ',
+			'en' : 'Address: ',
+			'nl' : 'Adres: ',
+		},
+		'L.Marker.Pin.Pins.asHtmlElement.Phone' :
+		{
+			'fr' : 'Téléphone: ',
+			'en' : 'Phone: ',
+			'nl' : 'Telefoon: ',
+		},
+		'L.Marker.Pin.Pins.asHtmlElement.Url' :
+		{
+			'fr' : 'Lien: ',
+			'en' : 'Link: ',
+			'nl' : 'Link: ',
+		}
 	};
 
 	L.Marker.Pin.getTranslator = function ( ) {
@@ -1499,7 +1993,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			Return :
 			- the text identified by TextId in the current user language when found
 			- the text identified by TextId in 'en' when not found in the current user language
-			- '???' when the text identified by TextId when not found in the current user language or 'en'
+			- '???' when the text identified by TextId is not found in the current user language or 'en'
 			- '???' when TextId is not found
 			*/
 
@@ -1603,7 +2097,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	/* --- End of L.Marker.Pin.Translator object --- */
 
 }) ( );
-},{"./L.Marker.Pin":8}],8:[function(require,module,exports){
+},{"./L.Marker.Pin":9}],9:[function(require,module,exports){
 /*
 Copyright - 2015 2016 - Christian Guyette - Contact: http//www.ouaie.be/
 
@@ -1659,7 +2153,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 			*/
 		
-			getHtml : function () {
+			getHtml : function ( ) {
 				var _Translator;
 				if ( typeof module !== 'undefined' && module.exports ) {
 					_Translator = require ('./L.Marker.Pin.Translator' );
@@ -1697,7 +2191,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 						_Translator.getText ( 'L.Marker.Pin.Link' ) +
 						'&nbsp: <a href="' +
 						this.options.url + '">' +
-						this.options.url +'</a>';
+						this.options.url.slice ( 0, 50 ) +'</a>';
 				}
 				return HtmlText;
 			}
@@ -1716,4 +2210,4 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	/* --- End of L.Marker.Pin object --- */
 	
 } ) ( );
-},{"./L.Marker.Pin.Translator":7}]},{},[5]);
+},{"./L.Marker.Pin.Translator":8}]},{},[6]);

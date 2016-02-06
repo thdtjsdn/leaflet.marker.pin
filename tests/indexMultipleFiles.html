@@ -7,8 +7,9 @@
 		<title>leaflet.marker.pin by wwwouaiebe</title>
 		<meta name="author" content="Christian Guyette" />
 		<link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css" />
-		<link rel="stylesheet" href="../dist/L.Marker.Pin.css" />
-		<link rel="stylesheet" href="index.css" />
+		<link rel="stylesheet" href="../dist/L.Marker.Pin.css"/>
+		<link rel="stylesheet" href="index.css" media="screen"/>
+		<link rel="stylesheet" href="print.css" media="print"/>
 	</head>
 	<body>
 		<header>
@@ -46,6 +47,9 @@
 						</p>
 					</div>
 				</div>
+				<div id="Print" class = "MenuItem">
+					<a href="print.html" target="_blank">Print</a>
+				</div>
 				<div id="View" class="MenuItem">
 					<a href="https://github.com/wwwouaiebe/leaflet.marker.pin">View On GitHub</a>
 				</div>
@@ -62,6 +66,9 @@
 		</header>
 		<div id="Map">
 		</div>
+		<div id="PinsContent">
+			<div></div>
+		</div>
 		<script src="../node_modules/leaflet/dist/leaflet.js"></script>
 		<script src="../src/L.Marker.Pin.js"></script>
 		<script src="../src/L.Marker.Pin.Translator.js"></script>
@@ -70,25 +77,60 @@
 		<script src="../src/L.Marker.Pin.Categories.js"></script>
 		<script src="../src/L.Marker.Pin.ContextMenu.js"></script>
 		<script src="../src/L.Marker.Pin.EditDialog.js"></script>
+		<script src="../src/L.Marker.Pin.Control.js"></script>
 		<script src="../src/L.Marker.Pin.Interface.js"></script>
 		<script>
 			(function() 
 			{
 				'use strict';
 
+				function storageAvailable ( type ) {
+					try {
+						var storage = window [ type ],
+							x = '__storage_test__';
+						storage.setItem ( x, x );
+						storage.removeItem ( x );
+						return true;
+					}
+					catch ( e ) {
+						return false;
+					}
+				}
+				
+				
 				var myInterface = L.marker.pin.interface ( );
 				
 				myInterface.UserLanguage = 'fr';
 				myInterface.addDefaultCategories ( );
-				myInterface.setCallbackFunction ( function ( ) { history.pushState ( { index : "bar" } , "page", '?pin=' + myInterface.stringifyPins ( ) );} );
+				myInterface.setCallbackFunction ( 
+					function ( ) { 
+						if (document.getElementById)
+						{
+							var PinsElement = document.getElementById("PinsContent");
+							PinsElement.replaceChild ( myInterface.PinsHtmlElement, PinsElement.firstChild );
+							if ( storageAvailable ( 'localStorage' ) ) {
+								localStorage.setItem ( 'PinsHtml', myInterface.PinsHtmlElement.outerHTML );
+							}
+						}
+						history.pushState ( { index : "bar" } , "page", '?pin=' + myInterface.stringifyPins ( ) );
+					}
+				);
 
 				var Map = L.map ( 'Map' ).setView( [ 50.49680, 5.51116 ], 13 );
 				L.tileLayer ( 'http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" title="Contributeurs de OpenStreetMap">Contributeurs de OpenStreetMap</a> | &copy; <a href="http://www.ouaie.be/" title="http://www.ouaie.be/">Christian Guyette</a>' } ).addTo ( Map );
 				Map.on ( 'click', function ( Event ) { myInterface.newPin ( Map, Event.latlng )} );
-				Map.on ( 'contextmenu', function ( Event ) {myInterface.newPin ( Map, Event.latlng )} );
+				Map.on ( 'contextmenu', function ( Event ) { myInterface.newPin ( Map, Event.latlng )} ); 
+				
+				myInterface.addControl( Map, { position : 'topright' } );
 
 				var Search = decodeURI ( window.location.search );
 				if ( 0 <= Search.indexOf ( 'pin=' ) ) { myInterface.parsePins ( Search.substr ( Search.indexOf ( 'pin=' ) + 4 ), Map );}
+
+				var PinsElement = document.getElementById("PinsContent");
+				PinsElement.replaceChild ( myInterface.PinsHtmlElement, PinsElement.firstChild );
+				if ( storageAvailable ( 'localStorage' ) ) {
+					localStorage.setItem ( 'PinsHtml', myInterface.PinsHtmlElement.outerHTML );
+				}
 			}
 			());		
 		</script>
