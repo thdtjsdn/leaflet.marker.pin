@@ -25,8 +25,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	
 	Patterns : Closure
 
-	Doc reviewed 20160110
-	Tests done 20160110
+	-v1.2.0:
+	- no changes
+	- Doc reviewed 20160110
+	- Tests done 20160110
 
 	------------------------------------------------------------------------------------------------------------------------
 	*/

@@ -31,36 +31,35 @@ describe ( "L.Marker.Pin.Interface tests - Warning : test order is important!", 
 
 	/* addDefaultCategories ( ) tests */
 	
-	it ( "06 - L.marker.pin.categories ( ).length return 0 before and 27 after running myInterface.addDefaultCategories ( )", function ( ) {
+	it ( "06 - L.marker.pin.categories ( ).length return 0 before and 28 after running myInterface.addDefaultCategories ( )", function ( ) {
 		expect ( L.marker.pin.categories ( ).length ).toBe ( 0 );
 		myInterface.addDefaultCategories ( );
-		expect ( L.marker.pin.categories ( ).length ).toBe ( 27 );
+		expect ( L.marker.pin.categories ( ).length ).toBe ( 28 );
 	} );
 
 	/* addCategory ( ) tests */
 
-	it ( "07 - L.marker.pin.categories ( ).length return 27 before and 28 after running myInterface.addCategory ( ) and  myInterface.addCategory ( ) return true", function ( ) {
-		expect ( L.marker.pin.categories ( ).length ).toBe ( 27 );
-
+	it ( "07 - L.marker.pin.categories ( ).length return 28 before and 29 after running myInterface.addCategory ( ) and  myInterface.addCategory ( ) return true", function ( ) {
+		expect ( L.marker.pin.categories ( ).length ).toBe ( 28 );
 		expect (
 			myInterface.addCategory ( 
-				'28', 
+				'29', 
 				{ 'en' : 'House', 'fr' : 'Maison', 'nl' : 'Huis', },
-				L.icon ( { iconUrl: 'img/0001.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } )
+				L.icon ( { iconUrl: 'L.Marker.Pin.img/0001.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } )
 			) ).toBeTruthy ( );
-		expect ( L.marker.pin.categories ( ).length ).toBe ( 28 );
+		expect ( L.marker.pin.categories ( ).length ).toBe ( 29 );
 	} );
 
 	it ( "08 - L.marker.pin.categories ( ).length return 28 before and  after running twice myInterface.addCategory ( ) with same parameters and  myInterface.addCategory ( ) return false", function ( ) {
-		expect ( L.marker.pin.categories ( ).length ).toBe ( 28 );
+		expect ( L.marker.pin.categories ( ).length ).toBe ( 29 );
 
 		expect (
 			myInterface.addCategory ( 
 				'28', 
 				{ 'en' : 'House', 'fr' : 'Maison', 'nl' : 'Huis', },
-				L.icon ( { iconUrl: 'img/0001.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } )
+				L.icon ( { iconUrl: 'L.Marker.Pin.img/0001.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } )
 			) ).toBeFalsy ( );
-		expect ( L.marker.pin.categories ( ).length ).toBe ( 28 );
+		expect ( L.marker.pin.categories ( ).length ).toBe ( 29 );
 	} );
 	
 	/* addTranslation ( ) tests */
@@ -122,6 +121,26 @@ describe ( "L.Marker.Pin.Interface tests - Warning : test order is important!", 
 
 	xit ( "22 - myInterface.parsePins cannot be currently tested in the Unit tests", function ( ) {
 		fail("myInterface.parsePins cannot be currently tested in the Unit tests");
+	} );
+
+	/* PinsHtlmlOptions tests */
+
+	it ( "23 - myInterface.PinsHtlmlOptions.mainElement return 'div'", function ( ) {
+		expect( myInterface.PinsHtlmlOptions.mainElement ).toBe (  'div' );
+		console.log ( myInterface.PinsHtlmlOptions );
+	} );
+
+	it ( "24 - myInterface.PinsHtlmlOptions.mainElement return 'h1' after running myInterface.PinsHtlmlOptions = { mainElement : 'h1'}", function ( ) {
+		myInterface.PinsHtlmlOptions = { mainElement : 'h1'};
+		expect( myInterface.PinsHtlmlOptions.mainElement ).toBe (  'h1' );
+	} );
+	
+	xit ( "25 - myInterface.PinsHtmlElement cannot be currently tested in the Unit tests", function ( ) {
+		fail("myInterface.PinsHtmlElement cannot be currently tested in the Unit tests");
+	} );
+
+	xit ( "26 - myInterface.addControl cannot be currently tested in the Unit tests", function ( ) {
+		fail("myInterface.addControl cannot be currently tested in the Unit tests");
 	} );
 	
 } );

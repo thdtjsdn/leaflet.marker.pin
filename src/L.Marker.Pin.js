@@ -24,9 +24,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	--- L.Marker.Pin object ------------------------------------------------------------------------------------------------
 	
 	This object extends the L.Marker object.
-
-	Doc reviewed 20160105
-	No automated unit tests for this object
+	
+	v1.2.0:
+	- Text part of the url is limited to 50 characters and the link open
+	in a new window.
+	- Doc reviewed 20160208
+	- No automated unit tests for this object
 
 	------------------------------------------------------------------------------------------------------------------------
 	*/
@@ -90,7 +93,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					HtmlText += 
 						_Translator.getText ( 'L.Marker.Pin.Link' ) +
 						'&nbsp: <a href="' +
-						this.options.url + '">' +
+						this.options.url + '" target="_blank">' +
 						this.options.url.slice ( 0, 50 ) +'</a>';
 				}
 				return HtmlText;

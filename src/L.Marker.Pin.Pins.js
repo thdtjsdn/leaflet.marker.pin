@@ -27,8 +27,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	
 	Patterns : Closure and Singleton.
 
-	Doc reviewed 20160111
-	No automated unit tests for this object
+ 	v1.2.0:
+	- Added _asHtmlElement ( ) private method
+	- Added _updateControl ( ) private method
+	- push ( ) and remove ( ) methods returns a value
+	- Added order ( ) public method
+	- Added zoomTo ( ) public method
+	- Added LatLngBounds public read only property
+	- Added asHtmlElement ( ) public method
+	- Doc reviewed 20160216
+	- No automated unit tests for this object
 	
 	------------------------------------------------------------------------------------------------------------------------
 	*/
@@ -37,6 +45,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 	var _Pins = []; // the pin's collection
 	var _NextPinId = 0; // The next pin id to use
+	var _PageLoad = true;
 	var _CallbackFunction = function ( ) {console.log ( '_CallbackFunction ( )');};
 	
 	/* 
@@ -57,7 +66,18 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		else {
 			_Translator = L.marker.pin.translator ( );
 		}
+
+		/* --- private methods --- */
+
+		/* 
+		--- _asHtmlElement ( options ) method --- 
 		
+		this method returns an HTMLElement with the pin's data
+		
+		See the L.Marker.Pin.Interface.PinsHtlmlOptions property for the options values
+		
+		*/
+				
 		var _asHtmlElement = function ( options ) {
 
 			if ( ! options.mainElement ) { options.mainElement = 'div'; }
@@ -67,7 +87,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			if ( ! options.addressElement ) { options.addressElement = 'div'; }
 			if ( ! options.phoneElement ) { options.phoneElement = 'div'; }
 			if ( ! options.urlElement ) { options.urlElement = 'div'; }
-			if ( ! options.urlCut ) { options.urlCut = 99999; }
+			if ( ! options.urlLength ) { options.urlLength = 9999; }
 
 			var MainElement = document.createElement ( options.mainElement );
 			if ( options.mainClass ) {
@@ -107,6 +127,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				}
 				
 				var CategoryNode = document.createTextNode ( Pin.options.pinCategory.CategoryName );
+				
 				CategoryElement.appendChild ( CategoryNode );
 				PinElement.appendChild ( CategoryElement );
 				
@@ -153,14 +174,15 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					UrlElement.appendChild ( UrlNode );
 					var UrlAnchorElement = document.createElement ( 'a' );
 					var urlText = Pin.options.url;
-					if ( urlText.length > options.urlCut ) {
-						urlText = urlText.slice ( 0, options.urlCut ) + ' ...';
+					if ( urlText.length > options.urlLength ) {
+						urlText = urlText.slice ( 0, options.urlLength ) + ' ...';
 					}
 						
 					var UrlAnchorNode = document.createTextNode ( urlText );
 					UrlAnchorElement.appendChild ( UrlAnchorNode );
 					UrlAnchorElement.setAttribute ( 'href', Pin.options.url );
 					UrlAnchorElement.setAttribute ( 'title', Pin.options.url );
+					UrlAnchorElement.setAttribute ( 'target', '_blank' );
 					UrlElement.appendChild ( UrlAnchorElement );
 					PinElement.appendChild ( UrlElement );
 				}
@@ -170,15 +192,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			return MainElement;
 		};
 
-		/* --- private methods --- */
-
 		/* 
 		--- _updateControl ( ) method --- 
+		
+		This method update the pins control
 		
 		*/
 		
 		var _updateControl = function ( ) {
-		
 			if ( document.getElementById ) {
 				var MaindivElement = document.getElementById ( 'PinControl-MainDiv' );
 				var OldPinsElement = document.getElementById ( 'PinControl-Pins' );
@@ -192,7 +213,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 							pinClass : "PinControl-Pin" , 
 							categoryElement : 'div',
 							categoryClass : "PinControl-Category" , 
-							CategoryImgElement : "div",
 							CategoryImgClass : "PinControl-Category-Img",
 							textElement : 'div',
 							textClass : "PinControl-Text" , 
@@ -202,12 +222,33 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 							phoneClass : "PinControl-Phone" , 
 							urlElement : 'div',
 							urlClass : "PinControl-Url" , 
-							urlCut : 50
+							urlLength : 50
 						}
 					);
 					NewPinsElement.id = 'PinControl-Pins';
-					
+					var OldStyle = OldPinsElement.style;
+					var OldComputedStyle = window.getComputedStyle ( OldPinsElement, null );
+					var OldMaxHeight;
+					try
+					{
+						OldMaxHeight = OldComputedStyle.maxHeight;
+					}
+					catch ( e )
+					{
+						OldMaxHeight = '400px';
+					}
+
+					NewPinsElement.dataset.minimized = OldPinsElement.dataset.minimized;
+					if ( 'yes' === NewPinsElement.dataset.minimized  ) {
+						NewPinsElement.setAttribute ( "style", "visibility : hidden; width: 0; min-width: 0; height: 0; margin: 0.5em;" );
+					}
+					else {
+						NewPinsElement.setAttribute ( "style", "visibility : visible; width: auto; min-width: 20em; height: auto; margin: 0.5em; max-height: "+ OldMaxHeight );
+					}
+
+					var ScrollTop = OldPinsElement.scrollTop;
 					MaindivElement.replaceChild ( NewPinsElement, OldPinsElement );
+					document.getElementById ( 'PinControl-Pins' ).scrollTop = ScrollTop;
 				}
 			}
 		};
@@ -244,6 +285,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			Parameters : 
 			- Pin : the L.Marker.Pin object to add to the collection
 			
+			Return :
+			- the position of the new pin in the pins collection (first position = 0)
+			
 			*/
 
 			push : function ( Pin ) {
@@ -262,6 +306,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			
 			Parameters : 
 			- Pin : the L.Marker.Pin object to remove from the collection
+			
+			Return :
+			- the position of the removed pin in the pins collection (first position = 0)
 
 			*/
 
@@ -279,6 +326,19 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				
 				return -1;
 			},
+
+			/* 
+			--- order ( OldPos, NewPos, AfterNewPos ) method --- 
+
+			This method changes the position of a pin in the pins collection
+
+			Parameters :
+			- OldPos : the old position of the pin in the collection
+			- NewPos : the new position of the pin in the collection
+			- AfterNewPos : a boolean indicates if the pin position must be
+			after the pin at the new position ( true ) or before ( false )
+			
+			*/
 
 			order : function ( OldPos, NewPos, AfterNewPos ) {
 				OldPos = parseInt ( OldPos );
@@ -319,20 +379,25 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				_updateControl ( );
 			},
 			
+			/* 
+			--- zoomTo ( PinRange ) method --- 
+			
+			This method zoom to a pin 
+			
+			Parameter :
+			PinRange : the position in the pins collection
+			
+			return: a reference to the pin
+			
+			*/
+			
 			zoomTo : function ( PinRange ) {
 				var Pin = _Pins [ PinRange ];
 				Pin.options.map.setView ( Pin.getLatLng ( ), 17);
+				
+				return Pin;
 			},
 			
-			get LatLngBounds ( ) {
-				var PinsLatLng = [];
-				for ( var Counter = 0; Counter < _Pins.length; Counter++) {
-					PinsLatLng.push ( _Pins [ Counter ].getLatLng ( ) );
-					 
-				}
-				
-				return L.latLngBounds(  PinsLatLng ); 
-			},
 			/* 
 			--- stringify ( ) method --- 
 			
@@ -431,9 +496,49 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				}
 				_updateControl ( );
 			},
+			
+			/*
+			
+			--- asHtmlElement( options ) method ---
+			
+			See the _asHtmlElement method and the 
+			L.Marker.Pin.Interface.PinsHtlmlOptions property
+			
+			*/
+			
 			asHtmlElement : function ( options ) {
 				return _asHtmlElement ( options );
-			}
+			},
+		
+			/* --- public properties --- */
+
+			/* 
+			
+			--- LatLngBounds ---
+			
+			The pins LatLngBounds object ( see leaflet documentation )
+			
+			*/
+			
+			get LatLngBounds ( ) {
+				var PinsLatLng = [];
+				for ( var Counter = 0; Counter < _Pins.length; Counter++) {
+					PinsLatLng.push ( _Pins [ Counter ].getLatLng ( ) );
+					 
+				}
+				
+				return L.latLngBounds(  PinsLatLng ); 
+			},
+
+			/* 
+			
+			--- length ---
+			
+			The size of the pins collection
+			
+			*/
+			
+			get length ( ) {return _Pins.length; }
 		};
 	};
 	

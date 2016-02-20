@@ -61,12 +61,15 @@ First have a look on the demo source page:
 				
 				myInterface.UserLanguage = 'en';
 				myInterface.addDefaultCategories ( );
-				myInterface.setCallbackFunction ( function ( ) { history.pushState ( { index : "bar" } , "page", '?pin=' + myInterface.stringifyPins ( ) );} );
+				
+				myInterface.setCallbackFunction ( function ( ) { history.pushState ( { index : "bar" } , "page", '?pin=' + myInterface.stringifyPins ( ) );	});
 
 				var Map = L.map ( 'Map' ).setView( [ 50.49680, 5.51116 ], 13 );
 				L.tileLayer ( 'http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" title="Contributeurs de OpenStreetMap">Contributeurs de OpenStreetMap</a> | &copy; <a href="http://www.ouaie.be/" title="http://www.ouaie.be/">Christian Guyette</a>' } ).addTo ( Map );
 				Map.on ( 'click', function ( Event ) { myInterface.newPin ( Map, Event.latlng )} );
-				Map.on ( 'contextmenu', function ( Event ) {myInterface.newPin ( Map, Event.latlng )} );
+				Map.on ( 'contextmenu', function ( Event ) { myInterface.newPin ( Map, Event.latlng )} ); 
+
+				myInterface.addControl( Map, { position : 'topright' } );
 
 				var Search = decodeURI ( window.location.search );
 				if ( 0 <= Search.indexOf ( 'pin=' ) ) { myInterface.parsePins ( Search.substr ( Search.indexOf ( 'pin=' ) + 4 ), Map );}
@@ -128,12 +131,12 @@ You can use the translation mechanism in L.marker.pin to translate others messag
 
 ### Categories
 
-You have also to say with witch categories you will work. 27 categories are currently defined, but perhaps you are not happy 
+You have also to say with witch categories you will work. 28 categories are currently defined, but perhaps you are not happy 
 with these categories or associated icons. In this case, you can create your own categories.
 
-#### Using the 27 default categories
+#### Using the 28 default categories
 
-The function addDefaultCategories ( ) is used to add the 27 categories already configured in L.Marker.Pin.
+The function addDefaultCategories ( ) is used to add the 28 categories already configured in L.Marker.Pin.
 ```
 L.marker.pin.interface ( ).addDefaultCategories ( );
 ```
@@ -318,6 +321,17 @@ Parameters:
 
 - Map : the L.Map object to witch the pin will be added
 
+### addControl ( Map, options ) method
+
+This method add the pins control to the map.
+
+Parameters:
+
+-  Map : the L.Map object to witch the control will be added
+
+- options the control options. See the leaflet control documentation
+
+
 ### Release property (read only)
 
 This property gives the release number
@@ -326,12 +340,68 @@ This property gives the release number
 
 The language to use.
 
+### PinsHtmlElement property (read only)
+
+This property gives an HTMLElement object with the pins data.
+
+Sample of object returned:
+
+```
+<div class ="Pin-Print-Main">
+	<div class="Pin-Print-Pin">
+		<img class="Pin-Print-CategoryImg">
+		</img>
+		<div class="Pin-Print-Category">
+			Lorem Ipsum...
+		</div>
+		<div class="Pin-Print-Text">
+			dolor sit amet, consectetur adipiscing elit. 
+		</div>
+		<div class="Pin-Print-Address">
+			Sed non risus
+		</div>
+		<div class="Pin-Print-Phone">
+			Suspendisse lectus tortor, dignissim sit amet,
+		</div>
+		<div class="Pin-Print-Url">
+			adipiscing nec, ultricies
+		</div>
+	</div>
+	... next pin...
+</div>
+```
+
+See also the PinsHtlmlOptions property.
+
+### PinsHtlmlOptions property
+
+The options used for the PinsHtmlElement property
+
+Default value:
+
+```
+{
+	mainElement : 'div',
+	mainClass : "Pin-Print-Main" , 
+	pinElement : 'div',
+	pinClass : "Pin-Print-Pin" , 
+	categoryImgClass : "Pin-Print-CategoryImg",
+	categoryElement : 'div',
+	categoryClass : "Pin-Print-Category" , 
+	textElement : 'div',
+	textClass : "Pin-Print-Text" , 
+	addressElement : 'div',
+	addressClass : "Pin-Print-Address" , 
+	phoneElement : 'div',
+	phoneClass : "Pin-Print-Phone" , 
+	urlElement : 'div',
+	urlClass : "Pin-Print-Url" ,
+	urlLength : 9999
+}
+```
+
 ## Know limitations and problems
 
 - Browsers have a limited length for the URL, especially IE and Edge. Saving a big collection of pins trough the URL can be difficult. 
 - Using non ASCII characters for the translations can gives strange results with IE for Windows Phone 8. No problems encountered with others browsers...
-
-
-
-
-
+- Drop a pin in the control don't work correctly with IE 11

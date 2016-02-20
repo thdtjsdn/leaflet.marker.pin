@@ -7,16 +7,16 @@
 		<title>leaflet.marker.pin by wwwouaiebe</title>
 		<meta name="author" content="Christian Guyette" />
 		<link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css" />
-		<link rel="stylesheet" href="../dist/L.Marker.Pin.css" />
+		<link rel="stylesheet" href="../dist/L.Marker.Pin.css"/>
 		<link rel="stylesheet" href="index.css" media="screen"/>
-		<link rel="stylesheet" href="print.css" media="print"/>
+		<link rel="stylesheet" href="indexprint.css" media="print"/>
 	</head>
 	<body>
 		<header>
 			<nav id="Menu">
 				<div id="Help" class="MenuItem">
 					<a>Help</a>
-					<div id="Help">
+					<div>
 						<h3>Add a pin</h3>
 						<p>
 							Click on the map with the left or right mouse button and complete the dialog box with your data. Finish with the OK button.
@@ -37,6 +37,33 @@
 						<p>
 							Drag and drop the pin on the map.
 						</p>
+						<h3>Using the control</h3>
+						<h4>Zoom on the pins</h4>
+						<p>Use the button <img src="L.Marker.Pin.img/zoombounds.png" /> to zoom on the pins </p>
+						<h4>View or hide the control</h4>
+						<p>
+							Use the buttons 
+							<img src="L.Marker.Pin.img/ArrowTopRight.png" />
+							<img src="L.Marker.Pin.img/ArrowTopLeft.png" />
+							<img src="L.Marker.Pin.img/ArrowBottomRight.png" /> or
+							<img src="L.Marker.Pin.img/ArrowBottomLeft.png" /> 
+							to open or close the control.
+						</p>
+						<h4>Extend or reduce the size of the control</h4>
+						<p>
+							Use the buttons 
+							<img src="L.Marker.Pin.img/ArrowTop.png" /> or
+							<img src="L.Marker.Pin.img/ArrowBottom.png" />
+							to extend or reduce the size of the control.
+						</p>
+						<h4>Zoom to a pin from the control</h4>
+						<p>Right or left click on a pin description in the control to zoom on the pin.</p>
+						<h4>Edit a pin from the control</h4>
+						<p>Double click on a pin description in the control to zoom on the pin and start the editor.</p>
+						<h4>Reorder the pins</h4>
+						<p>Drag and drop the pin description in the control to reorder the pins.</p>
+						<h3>Display a page with the pins description.</h3>
+						<p>The View button on the left opens a new page with the pins description. This page is updated each time a pin is modified, added or deleted.</p>
 						<h3>Save the pins</h3>
 						<p>
 							In this sample the pins are saved in the search part of the page url. Look the URL when you add, edit, delete or remove a pin.
@@ -47,8 +74,8 @@
 						</p>
 					</div>
 				</div>
-				<div id="Print" class = "MenuItem">
-					<a href="print.html" target="_blank">Print</a>
+				<div id="View" class="MenuItem">
+					<a href="view.html" target="_blank">View</a>
 				</div>
 				<div id="View" class="MenuItem">
 					<a href="https://github.com/wwwouaiebe/leaflet.marker.pin">View On GitHub</a>
@@ -70,6 +97,14 @@
 			<div></div>
 		</div>
 		<script src="../node_modules/leaflet/dist/leaflet.js"></script>
+
+
+
+
+
+
+
+
 		<script src="../dist/L.Marker.Pin.min.js"></script>
 		<script>
 			(function() 
@@ -112,7 +147,7 @@
 				L.tileLayer ( 'http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" title="Contributeurs de OpenStreetMap">Contributeurs de OpenStreetMap</a> | &copy; <a href="http://www.ouaie.be/" title="http://www.ouaie.be/">Christian Guyette</a>' } ).addTo ( Map );
 				Map.on ( 'click', function ( Event ) { myInterface.newPin ( Map, Event.latlng )} );
 				Map.on ( 'contextmenu', function ( Event ) { myInterface.newPin ( Map, Event.latlng )} ); 
-				
+
 				myInterface.addControl( Map, { position : 'topright' } );
 
 				var Search = decodeURI ( window.location.search );

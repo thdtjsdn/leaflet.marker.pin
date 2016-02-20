@@ -25,8 +25,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	
 	This function display the context menu when the user right click on a pin 
 
-	Doc reviewed 20160111
-	No automated unit tests for this function
+	-v1.2.0:
+	- no changes
+	- Doc reviewed 20160110
+	- No automated unit tests for this function
 	
 	------------------------------------------------------------------------------------------------------------------------
 	*/

@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	
 	Patterns : Closure
 
-	Doc reviewed 20160114
+	v1.2.0:
+	- small changes to avoid order change after pin edition
+	Doc reviewed 20160208
 	No automated unit tests for this function
 	
 	------------------------------------------------------------------------------------------------------------------------
@@ -200,7 +202,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			}
 			Pin.on ( 'contextmenu', ContextMenu ); 
 			Pin.on ( 'dragend', Pins.CallbackFunction ); 
-			Pin.on ( 'remove', function (e) { console.log ( 'remove' ); } ); 
 
 			if ( options.exist ) {
 				// The dialog was open for edition. The old pin is 

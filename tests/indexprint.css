@@ -1,9 +1,25 @@
-html > body > header
-{ 
-visibility: hidden
+body
+{
+	font-family: sans-serif;
+}
+html > body > header,
+.leaflet-control-container
+{
+	visibility: hidden;
+	overflow: hidden;
+	width : 0;
+	height: 0;
+	padding: 0;
+	margin: 0;
+}
+html > body > div#Map
+{
+	left: 0;
+	width: 100%;
 }
 html > body > div#PinsContent
 {
+	visibility: visible;
 	position: relative;
 	page-break-before: always;
 	width: 100%; 
@@ -23,7 +39,7 @@ html > body > div#PinsContent
 	padding: 1em;
 	border : solid;
 	border-width: 0.1em;
-	
+	page-break-inside: avoid;
 }
 .Pin-Print-Category
 {
@@ -38,8 +54,4 @@ html > body > div#PinsContent
 {
 	margin-top: 1em;
 	overflow: hidden;
-}
-.PinControl-MainDiv
-{
-	visibility: hidden;
 }

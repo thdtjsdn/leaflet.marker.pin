@@ -1,3 +1,31 @@
+/*
+Copyright - 2015 2016 - Christian Guyette - Contact: http//www.ouaie.be/
+
+This  program is free software;
+you can redistribute it and/or modify it under the terms of the 
+GNU General Public License as published by the Free Software Foundation;
+either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+	/*
+	------------------------------------------------------------------------------------------------------------------------
+
+	v1.2.0:
+	- Added default category 'start'
+
+	------------------------------------------------------------------------------------------------------------------------
+	*/
+
+
 describe ( "L.Marker.Pin.Categories tests - Warning : test order is important!", function ( ) {
 	
 	/* addCategory ( ) tests */
@@ -81,10 +109,10 @@ describe ( "L.Marker.Pin.Categories tests - Warning : test order is important!",
 	
 	/* addDefaultCategories ( ) tests */
 	
-	it ( "09 - L.marker.pin.categories ( ).length return 3 before and 30 after running L.marker.pin.categories ( ).addDefaultCategories ( )", function ( ) {
+	it ( "09 - L.marker.pin.categories ( ).length return 3 before and 31 after running L.marker.pin.categories ( ).addDefaultCategories ( )", function ( ) {
 		expect ( L.marker.pin.categories ( ).length ).toBe ( 3 );
 		L.marker.pin.categories ( ).addDefaultCategories ( );
-		expect ( L.marker.pin.categories ( ).length ).toBe ( 30 );
+		expect ( L.marker.pin.categories ( ).length ).toBe ( 31 );
 	} );
 
 } );

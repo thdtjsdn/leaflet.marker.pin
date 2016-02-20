@@ -29,8 +29,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	
 	Patterns : Closure and Singleton.
 	
-	Doc reviewed 20160103
-	Tests done 20160103
+	v1.2.0:
+	- added messages for L.Marker.Pin.Control and L.Maker.Pin.Pins.asHtmlElement
+	Doc reviewed 20160211
+	Tests done 20160211
 	
 	------------------------------------------------------------------------------------------------------------------------
 	*/
@@ -151,7 +153,37 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			'fr' : 'Lien: ',
 			'en' : 'Link: ',
 			'nl' : 'Link: ',
-		}
+		},
+		'L.Marker.Pin.Control.onAdd.ZoomBoundsButton' :
+		{
+			'fr' : 'Zoom sur les épingles',
+			'en' : 'Zoom on pins',
+			'nl' : '',
+		},
+		'L.Marker.Pin.Control.onAdd.MinimizeButton' :
+		{
+			'fr' : 'Réduire la fenêtre',
+			'en' : 'Minimize the window',
+			'nl' : '',
+		},		
+		'L.Marker.Pin.Control.onAdd.MaximizeButton' :
+		{
+			'fr' : 'Agrandir la fenêtre',
+			'en' : 'Maximize the window',
+			'nl' : '',
+		},
+		'L.Marker.Pin.Control.onAdd.ExtendButton' :
+		{
+			'fr' : 'Augmenter la hauteur de la fenêtre',
+			'en' : 'Extend the window height',
+			'nl' : '',
+		},
+		'L.Marker.Pin.Control.onAdd.ReduceButton' :
+		{
+			'fr' : 'Réduire la hauteur de la fenêtre',
+			'en' : 'Reduce the window height',
+			'nl' : '',
+		},
 	};
 
 	L.Marker.Pin.getTranslator = function ( ) {

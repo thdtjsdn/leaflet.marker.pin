@@ -27,8 +27,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 	Patterns : Closure and Singleton.
 	
-	Doc reviewed 20160102
-	Tests done 20160110
+	v1.2.0:
+	- Added default category 'start'
+	- Doc reviewed 20160208
+	- Tests done 20160208
 	
 	------------------------------------------------------------------------------------------------------------------------
 	*/
@@ -190,6 +192,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				this.addCategory ( '25', { 'en' : 'Coffe shop', 'fr' : 'Cafetaria ', 'nl' : 'Cafetaria ', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0025.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
 				this.addCategory ( '26', { 'en' : 'Restaurant', 'fr' : 'Restaurant', 'nl' : 'Restaurant', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0026.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
 				this.addCategory ( '27', { 'en' : 'Hostel', 'fr' : 'Hôtel', 'nl' : 'Hotel', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0027.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
+				this.addCategory ( '28', { 'en' : 'Start', 'fr' : 'Départ', 'nl' : 'Start', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0028.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
 			},
 			
 			/* --- public properties --- */

@@ -30,9 +30,15 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	This object contains all you need to use pins :-)
 	
 	Patterns : Closure
-
-	Doc reviewed 20160105
-	Tests done 20160104
+	
+	v1.2.0:
+	- added the _PinsHtmlOptions private property
+	- added the addControl ( ) method
+	- added the addTranslations ( ) method
+	- added the PinsHtmlElement read only property
+	-added the PinsHtlmlOptions property
+	Doc reviewed 20160211
+	Tests done 20160211
 	
 	------------------------------------------------------------------------------------------------------------------------
 	*/
@@ -65,10 +71,42 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			_Pins = L.marker.pin.pins ( );
 		}
 
+		var _PinsHtmlOptions = { 
+			mainElement : 'div',
+			mainClass : "Pin-Print-Main" , 
+			pinElement : 'div',
+			pinClass : "Pin-Print-Pin" , 
+			categoryImgClass : "Pin-Print-CategoryImg",
+			categoryElement : 'div',
+			categoryClass : "Pin-Print-Category" , 
+			textElement : 'div',
+			textClass : "Pin-Print-Text" , 
+			addressElement : 'div',
+			addressClass : "Pin-Print-Address" , 
+			phoneElement : 'div',
+			phoneClass : "Pin-Print-Phone" , 
+			urlElement : 'div',
+			urlClass : "Pin-Print-Url" , 
+			urlLength : 9999
+		};
+		
 		return {
 
 
 			/* --- public methods --- */
+			
+			/* addControl ( Map, options ) method --- 
+			
+			This method add the pin control to the map.
+			
+			Parameters :
+			
+			- Map : the L.Map object to witch the control must be added
+
+			- options the control options. See the leaflet control documentation
+			for more
+			
+			*/
 
 			addControl : function ( Map, options ) {
 				if ( typeof module !== 'undefined' && module.exports ) {
@@ -78,8 +116,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					Map.addControl ( L.marker.pin.control ( options ) );
 				}
 			},
-			
-		
+				
 			/* 
 			--- newPin ( Map, latlng ) method --- 
 			
@@ -164,8 +201,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				L.marker.pin.interface ( ).addTranslation ( 'L.Marker.Pin.EditDialog.Cancel', 'de', 'Lorem ipsum...' );	
 				// ...for the default categories from 01 ...
 				L.marker.pin.interface ( ).addTranslation ( 'L.Marker.Pin.Category.01', 'de', 'Lorem ipsum...' );	
-				// ... to 27...
-				L.marker.pin.interface ( ).addTranslation ( 'L.Marker.Pin.Category.27', 'de', 'Lorem ipsum...' );	
+				// ... to 28...
+				L.marker.pin.interface ( ).addTranslation ( 'L.Marker.Pin.Category.28', 'de', 'Lorem ipsum...' );	
 
 			*/	
 			
@@ -191,6 +228,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			addTranslations : function ( TextId, Translations ) {
 				return _Translator.addTranslations ( TextId, Translations );
 			},
+			
 			/* 
 			--- getText ( TextId ) method --- 
 			
@@ -266,26 +304,70 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				_Categories.sort ( );
 			},
 			
-			get PinsHtmlElement ( ) {
-				return _Pins.asHtmlElement (
-					{ 
-						mainElement : 'div',
-						mainClass : "Pin-Print-Main" , 
-						pinElement : 'div',
-						pinClass : "Pin-Print-Pin" , 
-						categoryElement : 'div',
-						categoryClass : "Pin-Print-Category" , 
-						textElement : 'div',
-						textClass : "Pin-Print-Text" , 
-						addressElement : 'div',
-						addressClass : "Pin-Print-Address" , 
-						phoneElement : 'div',
-						phoneClass : "Pin-Print-Phone" , 
-						urlElement : 'div',
-						urlClass : "Pin-Print-Url" , 
+			/* 
+			
+			--- PinsHtlmlOptions  ---
+			
+			The options used for the PinsHtmlElement property
+
+			Default values:
+			
+			mainElement : 'div',
+			mainClass : "Pin-Print-Main" , 
+			pinElement : 'div',
+			pinClass : "Pin-Print-Pin" , 
+			categoryImgClass : "Pin-Print-CategoryImg",
+			categoryElement : 'div',
+			categoryClass : "Pin-Print-Category" , 
+			textElement : 'div',
+			textClass : "Pin-Print-Text" , 
+			addressElement : 'div',
+			addressClass : "Pin-Print-Address" , 
+			phoneElement : 'div',
+			phoneClass : "Pin-Print-Phone" , 
+			urlElement : 'div',
+			urlClass : "Pin-Print-Url" ,
+			urlLength : 9999
+			
+			<div class ="Pin-Print-Main">
+				<div class="Pin-Print-Pin">
+					<img class="Pin-Print-CategoryImg">
+					</img>
+					<div class="Pin-Print-Category">
+					</div>
+					<div class="Pin-Print-Text">
+					</div>
+					<div class="Pin-Print-Address">
+					</div>
+					<div class="Pin-Print-Phone">
+					</div>
+					<div class="Pin-Print-Url">
+					</div>
+				</div>
+				... next pin...
+			</div>
+			
+			*/
+
+			get PinsHtlmlOptions ( ) { return _PinsHtmlOptions; },
+			
+			set PinsHtlmlOptions ( options ) { 
+				for ( var PinsHtmlOption in _PinsHtmlOptions ) {
+					if ( options [ PinsHtmlOption ] )
+					{
+						_PinsHtmlOptions [ PinsHtmlOption ] = options [ PinsHtmlOption ];
 					}
-				);
-			}
+				}
+			},
+			
+			/* 
+			--- PinsHtmlElement  ---
+			
+			An HTLMElement with the pin's data
+
+			*/
+
+			get PinsHtmlElement ( ) { return _Pins.asHtmlElement ( _PinsHtmlOptions ); },
 		};
 	};
 
