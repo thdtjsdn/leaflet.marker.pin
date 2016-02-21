@@ -79,7 +79,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	
 	var _onClick = function ( MouseEvent ) { 
 		var SelectedElement = MouseEvent.target;
-		while ( SelectedElement && ( SelectedElement.className !== 'PinControl-Pin' ) ) {
+		while ( SelectedElement && ( -1 === SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			SelectedElement = SelectedElement.parentNode;
 		}
 		if ( SelectedElement ) {
@@ -100,10 +100,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 	var _onDblClick = function ( MouseEvent ) { 
 		var SelectedElement = MouseEvent.target;
-		while ( SelectedElement && ( SelectedElement.className !== 'PinControl-Pin' ) ) {
+		while ( SelectedElement && ( -1 === SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			SelectedElement = SelectedElement.parentNode;
 		}
-		if ( SelectedElement && ( SelectedElement.className === 'PinControl-Pin' ) ) {
+		if ( SelectedElement && ( -1 !== SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			var Pin = _Pins.zoomTo ( SelectedElement.dataset.pinRange );
 			var Map = Pin.options.map;
 			var options = {
@@ -142,7 +142,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		MouseEvent.preventDefault();
 
 		var SelectedElement = MouseEvent.target;
-		while ( SelectedElement && ( SelectedElement.className !== 'PinControl-Pin' ) ) {
+		while ( SelectedElement && ( -1 === SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			SelectedElement = SelectedElement.parentNode;
 		}
 		if ( SelectedElement ) {
@@ -243,11 +243,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 	var _onDrop = function ( DragEvent ) { 
 		var SelectedElement = DragEvent.target;
-		while ( SelectedElement && ( SelectedElement.className !== 'PinControl-Pin' ) ) {
+		while ( SelectedElement && ( -1 === SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			SelectedElement = SelectedElement.parentNode;
 		}
 		var DroppedPinRange;
-		if (  SelectedElement && SelectedElement.className === 'PinControl-Pin' ) {
+		if ( SelectedElement && ( -1 !== SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			DroppedPinRange =  SelectedElement.dataset.pinRange;
 			if (  ( DragEvent.clientY - SelectedElement.getBoundingClientRect().top ) < ( SelectedElement.getBoundingClientRect().bottom - DragEvent.clientY ) ) {
 				_Pins.order ( _DraggedPinRange, DroppedPinRange, false );

@@ -98,12 +98,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				var Pin = _Pins [ Counter ];
 
 				var PinElement = document.createElement ( options.pinElement );
+				var ClassName = 'Pin-CategoryId-' + Pin.options.pinCategory.CategoryId;
 				if ( options.pinClass ) {
-					PinElement.className = options.pinClass;
+					ClassName = ClassName + ' ' + options.pinClass;
 				}
+				PinElement.className = ClassName;
 				PinElement.draggable = true;
 				PinElement.dataset.pinRange = Counter.toString ( );
-
 				L.DomEvent.on ( 
 					PinElement, 
 					'dragover', 
