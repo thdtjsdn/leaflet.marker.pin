@@ -575,10 +575,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	
 	var _onClick = function ( MouseEvent ) { 
 		var SelectedElement = MouseEvent.target;
-		while ( SelectedElement && ( -1 === SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
+		while ( SelectedElement && SelectedElement.className && ( -1 === SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			SelectedElement = SelectedElement.parentNode;
 		}
-		if ( SelectedElement ) {
+		if ( SelectedElement && SelectedElement.className && ( -1 !== SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			_Pins.zoomTo ( SelectedElement.dataset.pinRange );
 		}
 		MouseEvent.stopPropagation ( );
@@ -596,10 +596,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 	var _onDblClick = function ( MouseEvent ) { 
 		var SelectedElement = MouseEvent.target;
-		while ( SelectedElement && ( -1 === SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
+		while ( SelectedElement && SelectedElement.className && ( -1 === SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			SelectedElement = SelectedElement.parentNode;
 		}
-		if ( SelectedElement && ( -1 !== SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
+		if ( SelectedElement && SelectedElement.className && ( -1 !== SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			var Pin = _Pins.zoomTo ( SelectedElement.dataset.pinRange );
 			var Map = Pin.options.map;
 			var options = {
@@ -638,10 +638,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		MouseEvent.preventDefault();
 
 		var SelectedElement = MouseEvent.target;
-		while ( SelectedElement && ( -1 === SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
+		while ( SelectedElement && SelectedElement.className && ( -1 === SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			SelectedElement = SelectedElement.parentNode;
 		}
-		if ( SelectedElement ) {
+		if ( SelectedElement && SelectedElement.className && ( -1 !== SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			_Pins.zoomTo ( SelectedElement.dataset.pinRange );
 		}
 		MouseEvent.stopPropagation ( );
@@ -739,11 +739,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 	var _onDrop = function ( DragEvent ) { 
 		var SelectedElement = DragEvent.target;
-		while ( SelectedElement && ( -1 === SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
+		while ( SelectedElement && SelectedElement.className && ( -1 === SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			SelectedElement = SelectedElement.parentNode;
 		}
 		var DroppedPinRange;
-		if ( SelectedElement && ( -1 !== SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
+		if ( SelectedElement && SelectedElement.className && ( -1 !== SelectedElement.className.indexOf ('PinControl-Pin' ) ) ) {
 			DroppedPinRange =  SelectedElement.dataset.pinRange;
 			if (  ( DragEvent.clientY - SelectedElement.getBoundingClientRect().top ) < ( SelectedElement.getBoundingClientRect().bottom - DragEvent.clientY ) ) {
 				_Pins.order ( _DraggedPinRange, DroppedPinRange, false );
