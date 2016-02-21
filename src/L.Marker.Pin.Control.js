@@ -171,6 +171,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	
 	*/
 	var _onWheel = function ( WheelEvent ) { 
+		var PinsElement = document.getElementById ( 'PinControl-Pins' );
+		if ( WheelEvent.deltaY ) {
+			PinsElement.scrollTop = PinsElement.scrollTop + WheelEvent.deltaY * 10 ;
+		}
 		WheelEvent.stopPropagation ( );
 	};
 	
@@ -195,6 +199,26 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		DragEvent.stopPropagation ( );
 	};
 
+	/* 
+	
+	--- _onDragOver( DragEvent ) ---
+	
+	dragover event handler
+	
+	This event scroll the control when the mouse is near the top or bottom border
+	
+	*/
+
+	var _onDragOver = function ( DragEvent ) { 
+		var PinControlPins = document.getElementById ( 'PinControl-Pins' );
+		if ( 30 > DragEvent.clientY - document.getElementById ( 'PinControl-Pins' ).getBoundingClientRect().top ) {
+			PinControlPins.scrollTop = PinControlPins.scrollTop - 30;
+		}
+		else if ( 30 > document.getElementById ( 'PinControl-Pins' ).getBoundingClientRect().bottom - DragEvent.clientY ) {
+			PinControlPins.scrollTop = PinControlPins.scrollTop + 30;
+		}
+	};
+	
 	/* 
 	
 	--- _onDragEnd( DragEvent ) ---
@@ -342,6 +366,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		L.DomEvent.on ( MainDiv, 'dblclick', _onDblClick );
 		L.DomEvent.on ( MainDiv, 'contextmenu', _onContextMenu );
 		L.DomEvent.on ( MainDiv, 'dragstart', _onDragStart );
+		L.DomEvent.on ( MainDiv, 'dragover', _onDragOver );
 		L.DomEvent.on (	MainDiv, 'dragend', _onDragEnd );
 		L.DomEvent.on ( MainDiv, 'mousedown', _onMouseDown );
 		L.DomEvent.on ( MainDiv, 'drop', _onDrop );

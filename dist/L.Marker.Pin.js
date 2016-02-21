@@ -401,6 +401,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		// menu creation		
 		var MainDiv = L.DomUtil.create ( 'div', 'PinMenu-MainDiv' );
 
+		L.DomEvent.on ( 
+			MainDiv,
+			'keyup',
+			function ( KeyBoardEvent ) { 
+				if ( 'Escape' === KeyBoardEvent.key || 'Esc' === KeyBoardEvent.key ) {
+					Map.closePopup ( );
+				}
+			}
+		);
+		
 		// Edition button
 		var EditPinButton = L.DomUtil.create ( 'button', 'PinMenu-EditPinButton', MainDiv );
 		EditPinButton.setAttribute ( 'type' , 'button' );
@@ -450,6 +460,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		var CancelPinButton = L.DomUtil.create( 'button', 'PinMenu-CancelPinButton', MainDiv );
 		CancelPinButton.setAttribute( 'type' , 'button' );
 		CancelPinButton.innerHTML = _Translator.getText ( 'L.Marker.Pin.ContextMenu.CloseMenu' );	
+		CancelPinButton.id = 'CancelPinButton';
+		
 		L.DomEvent.on ( 
 			CancelPinButton, 
 			'click', function ( )
@@ -467,6 +479,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				className : 'PinMenu'
 			}
 		).setContent ( MainDiv ).setLatLng( Pin.getLatLng ( ) ).openOn( Map );
+		document.getElementById ( 'CancelPinButton' ).focus ( );
 	};
 
 	L.marker.pin.contextmenu = function ( MouseEvent ) {
@@ -654,6 +667,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	
 	*/
 	var _onWheel = function ( WheelEvent ) { 
+		var PinsElement = document.getElementById ( 'PinControl-Pins' );
+		if ( WheelEvent.deltaY ) {
+			PinsElement.scrollTop = PinsElement.scrollTop + WheelEvent.deltaY * 10 ;
+		}
 		WheelEvent.stopPropagation ( );
 	};
 	
@@ -678,6 +695,26 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		DragEvent.stopPropagation ( );
 	};
 
+	/* 
+	
+	--- _onDragOver( DragEvent ) ---
+	
+	dragover event handler
+	
+	This event scroll the control when the mouse is near the top or bottom border
+	
+	*/
+
+	var _onDragOver = function ( DragEvent ) { 
+		var PinControlPins = document.getElementById ( 'PinControl-Pins' );
+		if ( 30 > DragEvent.clientY - document.getElementById ( 'PinControl-Pins' ).getBoundingClientRect().top ) {
+			PinControlPins.scrollTop = PinControlPins.scrollTop - 30;
+		}
+		else if ( 30 > document.getElementById ( 'PinControl-Pins' ).getBoundingClientRect().bottom - DragEvent.clientY ) {
+			PinControlPins.scrollTop = PinControlPins.scrollTop + 30;
+		}
+	};
+	
 	/* 
 	
 	--- _onDragEnd( DragEvent ) ---
@@ -825,6 +862,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		L.DomEvent.on ( MainDiv, 'dblclick', _onDblClick );
 		L.DomEvent.on ( MainDiv, 'contextmenu', _onContextMenu );
 		L.DomEvent.on ( MainDiv, 'dragstart', _onDragStart );
+		L.DomEvent.on ( MainDiv, 'dragover', _onDragOver );
 		L.DomEvent.on (	MainDiv, 'dragend', _onDragEnd );
 		L.DomEvent.on ( MainDiv, 'mousedown', _onMouseDown );
 		L.DomEvent.on ( MainDiv, 'drop', _onDrop );
@@ -1195,10 +1233,20 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			//... main div ...
 			_MainDiv = L.DomUtil.create ( 'div','PinEditDialog-MainDiv' );
 			_MainDiv.innerHTML = options.exist ? _Translator.getText ('L.Marker.Pin.EditDialog.PinModification' ) : _Translator.getText ('L.Marker.Pin.EditDialog.NewPin' );
+			L.DomEvent.on ( 
+				_MainDiv,
+				'keyup',
+				function ( KeyBoardEvent ) { 
+					if ( 'Escape' === KeyBoardEvent.key || 'Esc' === KeyBoardEvent.key) {
+						Map.closePopup ( );
+					}
+				}
+			);
 			
 			// ... input...
 			var TextDiv = _createDiv ( 'PinEditDialog-TextDiv', _MainDiv, _Translator.getText ('L.Marker.Pin.EditDialog.Text') + '&nbsp;:&nbsp;' );
 			_TextInput = _createInput ( 'text', options.text, '', TextDiv );
+			_TextInput.id = 'TextInput';
 					
 			var AddressDiv = _createDiv ( 'PinEditDialog-AddressDiv', _MainDiv, _Translator.getText ('L.Marker.Pin.EditDialog.Address') + '&nbsp;:&nbsp;' );
 			_AddressInput = _createInput ( 'text', options.address, 'Havée du Renard Hout-si-Plou', AddressDiv );	
@@ -1365,6 +1413,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 						className : 'PinEditDialog'
 					}
 				).setContent ( _MainDiv ).setLatLng( latlng ).openOn( Map );
+				document.getElementById ( 'TextInput' ).focus ( );
 			}
 		};
 	};

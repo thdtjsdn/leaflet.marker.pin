@@ -58,6 +58,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		// menu creation		
 		var MainDiv = L.DomUtil.create ( 'div', 'PinMenu-MainDiv' );
 
+		L.DomEvent.on ( 
+			MainDiv,
+			'keyup',
+			function ( KeyBoardEvent ) { 
+				if ( 'Escape' === KeyBoardEvent.key || 'Esc' === KeyBoardEvent.key ) {
+					Map.closePopup ( );
+				}
+			}
+		);
+		
 		// Edition button
 		var EditPinButton = L.DomUtil.create ( 'button', 'PinMenu-EditPinButton', MainDiv );
 		EditPinButton.setAttribute ( 'type' , 'button' );
@@ -107,6 +117,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		var CancelPinButton = L.DomUtil.create( 'button', 'PinMenu-CancelPinButton', MainDiv );
 		CancelPinButton.setAttribute( 'type' , 'button' );
 		CancelPinButton.innerHTML = _Translator.getText ( 'L.Marker.Pin.ContextMenu.CloseMenu' );	
+		CancelPinButton.id = 'CancelPinButton';
+		
 		L.DomEvent.on ( 
 			CancelPinButton, 
 			'click', function ( )
@@ -124,6 +136,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				className : 'PinMenu'
 			}
 		).setContent ( MainDiv ).setLatLng( Pin.getLatLng ( ) ).openOn( Map );
+		document.getElementById ( 'CancelPinButton' ).focus ( );
 	};
 
 	L.marker.pin.contextmenu = function ( MouseEvent ) {

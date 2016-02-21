@@ -225,10 +225,20 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			//... main div ...
 			_MainDiv = L.DomUtil.create ( 'div','PinEditDialog-MainDiv' );
 			_MainDiv.innerHTML = options.exist ? _Translator.getText ('L.Marker.Pin.EditDialog.PinModification' ) : _Translator.getText ('L.Marker.Pin.EditDialog.NewPin' );
+			L.DomEvent.on ( 
+				_MainDiv,
+				'keyup',
+				function ( KeyBoardEvent ) { 
+					if ( 'Escape' === KeyBoardEvent.key || 'Esc' === KeyBoardEvent.key) {
+						Map.closePopup ( );
+					}
+				}
+			);
 			
 			// ... input...
 			var TextDiv = _createDiv ( 'PinEditDialog-TextDiv', _MainDiv, _Translator.getText ('L.Marker.Pin.EditDialog.Text') + '&nbsp;:&nbsp;' );
 			_TextInput = _createInput ( 'text', options.text, '', TextDiv );
+			_TextInput.id = 'TextInput';
 					
 			var AddressDiv = _createDiv ( 'PinEditDialog-AddressDiv', _MainDiv, _Translator.getText ('L.Marker.Pin.EditDialog.Address') + '&nbsp;:&nbsp;' );
 			_AddressInput = _createInput ( 'text', options.address, 'Havée du Renard Hout-si-Plou', AddressDiv );	
@@ -395,6 +405,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 						className : 'PinEditDialog'
 					}
 				).setContent ( _MainDiv ).setLatLng( latlng ).openOn( Map );
+				document.getElementById ( 'TextInput' ).focus ( );
 			}
 		};
 	};
