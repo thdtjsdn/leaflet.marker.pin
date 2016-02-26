@@ -129,6 +129,11 @@
 				
 				myInterface.UserLanguage = 'fr';
 				myInterface.addDefaultCategories ( );
+				myInterface.addCategory ( 
+					'DivIcon', 
+					{ 'en' : 'Category with DivIcon', 'fr' : 'Categorie avec DivIcon', 'nl' : 'categorie met DivIcon', }, 
+					L.divIcon ( { iconSize: [200, 20], iconAnchor: [100, 10], popupAnchor: [0, -10], html : '<div>Category with DivIcon</div>'}) );
+
 				myInterface.setCallbackFunction ( 
 					function ( ) { 
 						if (document.getElementById)

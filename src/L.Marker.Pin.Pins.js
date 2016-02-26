@@ -113,15 +113,22 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 						Event.preventDefault ( );
 					}
 				);
-
-				var CategoryImgElement = document.createElement ( 'img' );
-				CategoryImgElement.setAttribute ( 'src', Pin.options.pinCategory.CategoryIcon.options.iconUrl );
-				CategoryImgElement.draggable = false;
-				if ( options.categoryImgClass ) {
-					CategoryImgElement.className = options.categoryImgClass;
+				var CategoryImgElement;
+				if ( Pin.options.pinCategory.CategoryIcon.options.html ) {
+					CategoryImgElement = document.createElement ( 'div' );
+					PinElement.appendChild ( CategoryImgElement );
+					CategoryImgElement.outerHTML = Pin.options.pinCategory.CategoryIcon.options.html;
 				}
-				PinElement.appendChild ( CategoryImgElement );
-
+				else {
+					CategoryImgElement = document.createElement ( 'img' );
+					CategoryImgElement.setAttribute ( 'src', Pin.options.pinCategory.CategoryIcon.options.iconUrl );
+					CategoryImgElement.draggable = false;
+					if ( options.categoryImgClass ) {
+						CategoryImgElement.className = options.categoryImgClass;
+					}
+					PinElement.appendChild ( CategoryImgElement );
+				}
+				
 				var CategoryElement = document.createElement ( options.categoryElement );
 				if ( options.categoryClass ) {
 					CategoryElement.className = options.categoryClass;

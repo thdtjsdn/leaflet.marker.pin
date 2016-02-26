@@ -166,34 +166,118 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			*/
 			addDefaultCategories : function ( )
 			{
-				this.addCategory ( '01', { 'en' : 'Airport', 'fr' : 'Aéroport', 'nl' : 'Luchthaven', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0001.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '02', { 'en' : 'Ascent', 'fr' : 'Montée', 'nl' : 'Helling', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0002.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '03', { 'en' : 'ATM', 'fr' : 'Distributeur de billets', 'nl' : 'Giromaat', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0003.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '04', { 'en' : 'Attention', 'fr' : 'Attention requise', 'nl' : 'Pas op', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0004.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '05', { 'en' : 'Bikes admitted', 'fr' : 'Vélos admis', 'nl' : 'Fiets welkom', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0005.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '06', { 'en' : 'Bus', 'fr' : 'Autobus', 'nl' : 'Bus', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0006.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '07', { 'en' : 'Picture', 'fr' : 'Photo', 'nl' : 'Foto', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0007.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '08', { 'en' : 'Camping', 'fr' : 'Camping', 'nl' : 'Camping', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0008.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '09', { 'en' : 'Ferry', 'fr' : 'Ferry', 'nl' : 'Veerboot', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0009.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '10', { 'en' : 'Youth hostel', 'fr' : 'Auberge de jeunesse', 'nl' : 'Jeugdherberg', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0010.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '11', { 'en' : 'Information point', 'fr' : 'Point d\'information', 'nl' : 'Informatiepunt', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0011.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '12', { 'en' : 'National park', 'fr' : 'Parc national', 'nl' : 'Nationaal park', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0012.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '13', { 'en' : 'Bike not authorized', 'fr' : 'Vélos mal vus', 'nl' : 'Fiets niet welkom', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0013.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '14', { 'en' : 'Regional park', 'fr' : 'Parc régional', 'nl' : 'Gewestelijk natuurpark', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0014.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '15', { 'en' : 'Repair', 'fr' : 'Entretien vélo', 'nl' : 'Rijwielhersteller', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0015.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '16', { 'en' : 'Shop', 'fr' : 'Magasin', 'nl' : 'Winkel', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0016.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '17', { 'en' : 'Help', 'fr' : 'Aide', 'nl' : 'Hulp', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0017.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '18', { 'en' : 'Stop', 'fr' : 'Stop', 'nl' : 'Stop', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0018.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '19', { 'en' : 'Table', 'fr' : 'Table', 'nl' : 'Tafel', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0019.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '20', { 'en' : 'Toilets', 'fr' : 'Toilettes', 'nl' :'Toilet', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0020.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '21', { 'en' : 'Railway station', 'fr' : 'Gare', 'nl' : 'Treinstation', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0021.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '22', { 'en' : 'Tunnel', 'fr' : 'Tunnel', 'nl' : 'Tunnel', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0022.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '23', { 'en' : 'Water point', 'fr' : 'Point d\'eau', 'nl' : 'Waterpunt', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0023.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '24', { 'en' : 'Bed and breakfast', 'fr' : 'Chambre d\'hotes', 'nl' : 'Bed and Breakfast', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0024.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '25', { 'en' : 'Coffe shop', 'fr' : 'Cafetaria ', 'nl' : 'Cafetaria ', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0025.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '26', { 'en' : 'Restaurant', 'fr' : 'Restaurant', 'nl' : 'Restaurant', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0026.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '27', { 'en' : 'Hostel', 'fr' : 'Hôtel', 'nl' : 'Hotel', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0027.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
-				this.addCategory ( '28', { 'en' : 'Start', 'fr' : 'Départ', 'nl' : 'Start', }, L.icon ( { iconUrl: 'L.Marker.Pin.img/0028.png', iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20] } ) );
+				this.addCategory ( 
+					'01',
+					{ 'en' : 'Airport', 'fr' : 'Aéroport', 'nl' : 'Luchthaven', },
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0001"></div>'}) );
+				this.addCategory ( 
+					'02',
+					{ 'en' : 'Ascent', 'fr' : 'Montée', 'nl' : 'Helling', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0002"></div>'}) );
+				this.addCategory ( 
+					'03',
+					{ 'en' : 'ATM', 'fr' : 'Distributeur de billets', 'nl' : 'Giromaat', },
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0003"></div>'}) );
+				this.addCategory ( 
+					'04', 
+					{ 'en' : 'Attention', 'fr' : 'Attention requise', 'nl' : 'Pas op', },
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0004"></div>'}) );
+				this.addCategory ( 
+					'05', 
+					{ 'en' : 'Bikes admitted', 'fr' : 'Vélos admis', 'nl' : 'Fiets welkom', },
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0005"></div>'}) );
+				this.addCategory ( 
+					'06', 
+					{ 'en' : 'Bus', 'fr' : 'Autobus', 'nl' : 'Bus', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0006"></div>'}) );
+				this.addCategory ( 
+					'07', 
+					{ 'en' : 'Picture', 'fr' : 'Photo', 'nl' : 'Foto', },
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0007"></div>'}) );
+				this.addCategory ( 
+					'08', 
+					{ 'en' : 'Camping', 'fr' : 'Camping', 'nl' : 'Camping', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0008"></div>'}) );
+				this.addCategory ( 
+					'09', 
+					{ 'en' : 'Ferry', 'fr' : 'Ferry', 'nl' : 'Veerboot', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0009"></div>'}) );
+				this.addCategory ( 
+					'10', 
+					{ 'en' : 'Youth hostel', 'fr' : 'Auberge de jeunesse', 'nl' : 'Jeugdherberg', },
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0010"></div>'}) );
+				this.addCategory ( 
+					'11', 
+					{ 'en' : 'Information point', 'fr' : 'Point d\'information', 'nl' : 'Informatiepunt', },
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0011"></div>'}) );
+				this.addCategory ( 
+					'12', 
+					{ 'en' : 'National park', 'fr' : 'Parc national', 'nl' : 'Nationaal park', },
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0012"></div>'}) );
+				this.addCategory ( 
+					'13', 
+					{ 'en' : 'Bike not authorized', 'fr' : 'Vélos mal vus', 'nl' : 'Fiets niet welkom', },
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0013"></div>'}) );
+				this.addCategory ( 
+					'14', 
+					{ 'en' : 'Regional park', 'fr' : 'Parc régional', 'nl' : 'Gewestelijk natuurpark', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0014"></div>'}) );
+				this.addCategory ( 
+					'15', 
+					{ 'en' : 'Repair', 'fr' : 'Entretien vélo', 'nl' : 'Rijwielhersteller', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0015"></div>'}) );
+				this.addCategory ( 
+					'16', 
+					{ 'en' : 'Shop', 'fr' : 'Magasin', 'nl' : 'Winkel', },
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0016"></div>'}) );
+				this.addCategory ( 
+					'17', 
+					{ 'en' : 'Help', 'fr' : 'Aide', 'nl' : 'Hulp', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0017"></div>'}) );
+				this.addCategory ( 
+					'18', 
+					{ 'en' : 'Stop', 'fr' : 'Stop', 'nl' : 'Stop', },
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0018"></div>'}) );
+				this.addCategory ( 
+					'19', 
+					{ 'en' : 'Table', 'fr' : 'Table', 'nl' : 'Tafel', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0019"></div>'}) );
+				this.addCategory ( 
+					'20', 
+					{ 'en' : 'Toilets', 'fr' : 'Toilettes', 'nl' :'Toilet', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0020"></div>'}) );
+				this.addCategory ( 
+					'21', 
+					{ 'en' : 'Railway station', 'fr' : 'Gare', 'nl' : 'Treinstation', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0021"></div>'}) );
+				this.addCategory ( 
+					'22', 
+					{ 'en' : 'Tunnel', 'fr' : 'Tunnel', 'nl' : 'Tunnel', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0022"></div>'}) );
+				this.addCategory ( 
+					'23', 
+					{ 'en' : 'Water point', 'fr' : 'Point d\'eau', 'nl' : 'Waterpunt', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0023"></div>'}) );
+				this.addCategory ( 
+					'24', 
+					{ 'en' : 'Bed and breakfast', 'fr' : 'Chambre d\'hotes', 'nl' : 'Bed and Breakfast', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0024"></div>'}) );
+				this.addCategory ( 
+					'25', 
+					{ 'en' : 'Coffe shop', 'fr' : 'Cafetaria ', 'nl' : 'Cafetaria ', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0025"></div>'}) );
+				this.addCategory ( 
+					'26', 
+					{ 'en' : 'Restaurant', 'fr' : 'Restaurant', 'nl' : 'Restaurant', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0026"></div>'}) );
+				this.addCategory ( 
+					'27', 
+					{ 'en' : 'Hostel', 'fr' : 'Hôtel', 'nl' : 'Hotel', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0027"></div>'}) );
+				this.addCategory ( 
+					'28', 
+					{ 'en' : 'Start', 'fr' : 'Départ', 'nl' : 'Start', }, 
+					L.divIcon ( { iconSize: [40, 40], iconAnchor: [20, 20], popupAnchor: [0, -20], html : '<div class="Pin-Icon Pin-Category-0028"></div>'}) );
 			},
 			
 			/* --- public properties --- */
@@ -205,8 +289,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 			*/
 			
-			get length ( ) { return _PinCategories.length; },
-			
+			get length ( ) { return _PinCategories.length; }
 		};
 	};
 
@@ -549,12 +632,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 	var _DraggedPinRange = '0';
 	
-	
-	var _MinimizeIcon; // The icon for the minimize button
-	var _MaximizeIcon; // The icon for the maximize button
-	var _ReduceIcon; // The icon for the reduce button
-	var _ExtendIcon; // The icon for the extend button
-	
+	var _MinimizeButtonId; // The icon for the minimize button
+	var _MaximizeButtonId; // The icon for the maximize button
+	var _ReduceButtonId; // The icon for the reduce button
+	var _ExtendButtonId; // The icon for the extend button
+
 	var _MaxHeight = 400; // the max-height CSS property of the control 
 
 	var _ButtonsOnTop = true; // variable to store the buttons position in the control
@@ -787,13 +869,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		var PinsElement = document.getElementById ( 'PinControl-Pins' );
 		if ( PinsElement.style.visibility === "hidden" ) {
 			PinsElement.setAttribute ( "style", "visibility : visible; width: auto; min-width: 20em; height: auto; margin: 0.5em; max-height: "+ _MaxHeight +"px" );
-			MouseEvent.target.setAttribute ( 'src' , _MinimizeIcon );
+			MouseEvent.target.id = _MinimizeButtonId;
 			MouseEvent.target.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.MinimizeButton' ) );
 			PinsElement.dataset.minimized = 'no';
 		}
 		else {
 			PinsElement.setAttribute ( "style", "visibility : hidden; width: 0; min-width: 0; height: 0; margin: 0.5em;" );
-			MouseEvent.target.setAttribute ( 'src' , _MaximizeIcon );
+			MouseEvent.target.id = _MaximizeButtonId;
 			MouseEvent.target.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.MaximizeButton' ) );
 			PinsElement.dataset.minimized = 'yes';
 		}
@@ -891,28 +973,24 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	var _createButtonsDiv = function ( MainDiv, IsMinimized ) {
 		var ButtonsDiv = L.DomUtil.create ( 'div', 'PinControl-Buttons', MainDiv );
 
-		var ZoomBoundsButton = L.DomUtil.create ( 'img', 'PinControl-Button', ButtonsDiv );
-		ZoomBoundsButton.setAttribute ( 'src' , 'L.Marker.Pin.img/zoombounds.png' );
+		var ZoomBoundsButton = L.DomUtil.create ( 'div', 'PinControl-Button', ButtonsDiv );
 		ZoomBoundsButton.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.ZoomBoundsButton' ) );
 		ZoomBoundsButton.id = 'PinControl-ZoomBoundsButton';
 		L.DomEvent.on ( ZoomBoundsButton, 'click', _onClickZoomBounds );
 
-		var MinMaxButton = L.DomUtil.create ( 'img', 'PinControl-Button', ButtonsDiv );
-		MinMaxButton.setAttribute ( 'src' , IsMinimized ? _MaximizeIcon : _MinimizeIcon   );
+		var MinMaxButton = L.DomUtil.create ( 'div', 'PinControl-Button', ButtonsDiv );
 		MinMaxButton.setAttribute ( 'title' , _Translator.getText ( IsMinimized ? 'L.Marker.Pin.Control.onAdd.MaximizeButton' : 'L.Marker.Pin.Control.onAdd.MinimizeButton' ) );
-		MinMaxButton.id = 'PinControl-MinMaxButton';
+		MinMaxButton.id = IsMinimized ? _MaximizeButtonId : _MinimizeButtonId;
 		L.DomEvent.on ( MinMaxButton, 'click', _onClickMinMax );
 		
-		var ExtendButton = L.DomUtil.create ( 'img', 'PinControl-Button', ButtonsDiv );
-		ExtendButton.setAttribute ( 'src' , _ExtendIcon );
+		var ExtendButton = L.DomUtil.create ( 'div', 'PinControl-Button', ButtonsDiv );
 		ExtendButton.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.ExtendButton' ) );
-		ExtendButton.id = 'PinControl-ExtendButton';
+		ExtendButton.id = _ExtendButtonId;
 		L.DomEvent.on ( ExtendButton, 'click', _onClickExtend );
 
-		var ReduceButton = L.DomUtil.create ( 'img', 'PinControl-Button', ButtonsDiv );
-		ReduceButton.setAttribute ( 'src' , _ReduceIcon );
+		var ReduceButton = L.DomUtil.create ( 'div', 'PinControl-Button', ButtonsDiv );
 		ReduceButton.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.ReduceButton' ) );
-		ReduceButton.id = 'PinControl-ReduceButton';
+		ReduceButton.id = _ReduceButtonId;
 		L.DomEvent.on ( ReduceButton, 'click', _onClickReduce );
 
 		return ButtonsDiv;
@@ -933,29 +1011,29 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				L.Util.setOptions( this, options );
 				switch ( options.position ) {
 					case 'topleft':
-					_MinimizeIcon = 'L.Marker.Pin.img/ArrowTopLeft.png';
-					_MaximizeIcon = 'L.Marker.Pin.img/ArrowBottomRight.png';
-					_ReduceIcon = 'L.Marker.Pin.img/ArrowTop.png';
-					_ExtendIcon = 'L.Marker.Pin.img/ArrowBottom.png';
+					_MinimizeButtonId = 'PinControl-ArrowTopLeftButton';
+					_MaximizeButtonId = 'PinControl-ArrowBottomRightButton';
+					_ReduceButtonId = 'PinControl-ArrowTopButton';
+					_ExtendButtonId = 'PinControl-ArrowBottomButton';
 					break;
 					case 'topright':
-					_MinimizeIcon = 'L.Marker.Pin.img/ArrowTopRight.png';
-					_MaximizeIcon = 'L.Marker.Pin.img/ArrowBottomLeft.png';
-					_ReduceIcon = 'L.Marker.Pin.img/ArrowTop.png';
-					_ExtendIcon = 'L.Marker.Pin.img/ArrowBottom.png';
+					_MinimizeButtonId = 'PinControl-ArrowTopRightButton';
+					_MaximizeButtonId = 'PinControl-ArrowBottomLeftButton';
+					_ReduceButtonId = 'PinControl-ArrowTopButton';
+					_ExtendButtonId = 'PinControl-ArrowBottomButton';
 					break;
 					case 'bottomright':
-					_MinimizeIcon = 'L.Marker.Pin.img/ArrowBottomRight.png';
-					_MaximizeIcon = 'L.Marker.Pin.img/ArrowTopLeft.png';
-					_ReduceIcon = 'L.Marker.Pin.img/ArrowBottom.png';
-					_ExtendIcon = 'L.Marker.Pin.img/ArrowTop.png';
+					_MinimizeButtonId = 'PinControl-ArrowBottomRightButton';
+					_MaximizeButtonId = 'PinControl-ArrowTopLeftButton';
+					_ReduceButtonId = 'PinControl-ArrowBottomButton';
+					_ExtendButtonId = 'PinControl-ArrowTopButton';
 					_ButtonsOnTop = false;
 					break;
 					default:
-					_MinimizeIcon = 'L.Marker.Pin.img/ArrowBottomLeft.png';
-					_MaximizeIcon = 'L.Marker.Pin.img/ArrowTopRight.png';
-					_ReduceIcon = 'L.Marker.Pin.img/ArrowBottom.png';
-					_ExtendIcon = 'L.Marker.Pin.img/ArrowTop.png';
+					_MinimizeButtonId = 'PinControl-ArrowBottomLeftButton';
+					_MaximizeButtonId = 'PinControl-ArrowTopRightButton';
+					_ReduceButtonId = 'PinControl-ArrowBottomRightButton';
+					_ExtendButtonId = 'PinControl-ArrowTopButton';
 					_ButtonsOnTop = false;
 					break;
 				}
@@ -1799,7 +1877,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 			*/
 
-			get PinsHtmlElement ( ) { return _Pins.asHtmlElement ( _PinsHtmlOptions ); },
+			get PinsHtmlElement ( ) { return _Pins.asHtmlElement ( _PinsHtmlOptions ); }
 		};
 	};
 
@@ -1931,15 +2009,22 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 						Event.preventDefault ( );
 					}
 				);
-
-				var CategoryImgElement = document.createElement ( 'img' );
-				CategoryImgElement.setAttribute ( 'src', Pin.options.pinCategory.CategoryIcon.options.iconUrl );
-				CategoryImgElement.draggable = false;
-				if ( options.categoryImgClass ) {
-					CategoryImgElement.className = options.categoryImgClass;
+				var CategoryImgElement;
+				if ( Pin.options.pinCategory.CategoryIcon.options.html ) {
+					CategoryImgElement = document.createElement ( 'div' );
+					PinElement.appendChild ( CategoryImgElement );
+					CategoryImgElement.outerHTML = Pin.options.pinCategory.CategoryIcon.options.html;
 				}
-				PinElement.appendChild ( CategoryImgElement );
-
+				else {
+					CategoryImgElement = document.createElement ( 'img' );
+					CategoryImgElement.setAttribute ( 'src', Pin.options.pinCategory.CategoryIcon.options.iconUrl );
+					CategoryImgElement.draggable = false;
+					if ( options.categoryImgClass ) {
+						CategoryImgElement.className = options.categoryImgClass;
+					}
+					PinElement.appendChild ( CategoryImgElement );
+				}
+				
 				var CategoryElement = document.createElement ( options.categoryElement );
 				if ( options.categoryClass ) {
 					CategoryElement.className = options.categoryClass;

@@ -53,12 +53,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 	var _DraggedPinRange = '0';
 	
-	
-	var _MinimizeIcon; // The icon for the minimize button
-	var _MaximizeIcon; // The icon for the maximize button
-	var _ReduceIcon; // The icon for the reduce button
-	var _ExtendIcon; // The icon for the extend button
-	
+	var _MinimizeButtonId; // The icon for the minimize button
+	var _MaximizeButtonId; // The icon for the maximize button
+	var _ReduceButtonId; // The icon for the reduce button
+	var _ExtendButtonId; // The icon for the extend button
+
 	var _MaxHeight = 400; // the max-height CSS property of the control 
 
 	var _ButtonsOnTop = true; // variable to store the buttons position in the control
@@ -291,13 +290,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		var PinsElement = document.getElementById ( 'PinControl-Pins' );
 		if ( PinsElement.style.visibility === "hidden" ) {
 			PinsElement.setAttribute ( "style", "visibility : visible; width: auto; min-width: 20em; height: auto; margin: 0.5em; max-height: "+ _MaxHeight +"px" );
-			MouseEvent.target.setAttribute ( 'src' , _MinimizeIcon );
+			MouseEvent.target.id = _MinimizeButtonId;
 			MouseEvent.target.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.MinimizeButton' ) );
 			PinsElement.dataset.minimized = 'no';
 		}
 		else {
 			PinsElement.setAttribute ( "style", "visibility : hidden; width: 0; min-width: 0; height: 0; margin: 0.5em;" );
-			MouseEvent.target.setAttribute ( 'src' , _MaximizeIcon );
+			MouseEvent.target.id = _MaximizeButtonId;
 			MouseEvent.target.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.MaximizeButton' ) );
 			PinsElement.dataset.minimized = 'yes';
 		}
@@ -395,28 +394,24 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 	var _createButtonsDiv = function ( MainDiv, IsMinimized ) {
 		var ButtonsDiv = L.DomUtil.create ( 'div', 'PinControl-Buttons', MainDiv );
 
-		var ZoomBoundsButton = L.DomUtil.create ( 'img', 'PinControl-Button', ButtonsDiv );
-		ZoomBoundsButton.setAttribute ( 'src' , 'L.Marker.Pin.img/zoombounds.png' );
+		var ZoomBoundsButton = L.DomUtil.create ( 'div', 'PinControl-Button', ButtonsDiv );
 		ZoomBoundsButton.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.ZoomBoundsButton' ) );
 		ZoomBoundsButton.id = 'PinControl-ZoomBoundsButton';
 		L.DomEvent.on ( ZoomBoundsButton, 'click', _onClickZoomBounds );
 
-		var MinMaxButton = L.DomUtil.create ( 'img', 'PinControl-Button', ButtonsDiv );
-		MinMaxButton.setAttribute ( 'src' , IsMinimized ? _MaximizeIcon : _MinimizeIcon   );
+		var MinMaxButton = L.DomUtil.create ( 'div', 'PinControl-Button', ButtonsDiv );
 		MinMaxButton.setAttribute ( 'title' , _Translator.getText ( IsMinimized ? 'L.Marker.Pin.Control.onAdd.MaximizeButton' : 'L.Marker.Pin.Control.onAdd.MinimizeButton' ) );
-		MinMaxButton.id = 'PinControl-MinMaxButton';
+		MinMaxButton.id = IsMinimized ? _MaximizeButtonId : _MinimizeButtonId;
 		L.DomEvent.on ( MinMaxButton, 'click', _onClickMinMax );
 		
-		var ExtendButton = L.DomUtil.create ( 'img', 'PinControl-Button', ButtonsDiv );
-		ExtendButton.setAttribute ( 'src' , _ExtendIcon );
+		var ExtendButton = L.DomUtil.create ( 'div', 'PinControl-Button', ButtonsDiv );
 		ExtendButton.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.ExtendButton' ) );
-		ExtendButton.id = 'PinControl-ExtendButton';
+		ExtendButton.id = _ExtendButtonId;
 		L.DomEvent.on ( ExtendButton, 'click', _onClickExtend );
 
-		var ReduceButton = L.DomUtil.create ( 'img', 'PinControl-Button', ButtonsDiv );
-		ReduceButton.setAttribute ( 'src' , _ReduceIcon );
+		var ReduceButton = L.DomUtil.create ( 'div', 'PinControl-Button', ButtonsDiv );
 		ReduceButton.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.ReduceButton' ) );
-		ReduceButton.id = 'PinControl-ReduceButton';
+		ReduceButton.id = _ReduceButtonId;
 		L.DomEvent.on ( ReduceButton, 'click', _onClickReduce );
 
 		return ButtonsDiv;
@@ -437,29 +432,29 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				L.Util.setOptions( this, options );
 				switch ( options.position ) {
 					case 'topleft':
-					_MinimizeIcon = 'L.Marker.Pin.img/ArrowTopLeft.png';
-					_MaximizeIcon = 'L.Marker.Pin.img/ArrowBottomRight.png';
-					_ReduceIcon = 'L.Marker.Pin.img/ArrowTop.png';
-					_ExtendIcon = 'L.Marker.Pin.img/ArrowBottom.png';
+					_MinimizeButtonId = 'PinControl-ArrowTopLeftButton';
+					_MaximizeButtonId = 'PinControl-ArrowBottomRightButton';
+					_ReduceButtonId = 'PinControl-ArrowTopButton';
+					_ExtendButtonId = 'PinControl-ArrowBottomButton';
 					break;
 					case 'topright':
-					_MinimizeIcon = 'L.Marker.Pin.img/ArrowTopRight.png';
-					_MaximizeIcon = 'L.Marker.Pin.img/ArrowBottomLeft.png';
-					_ReduceIcon = 'L.Marker.Pin.img/ArrowTop.png';
-					_ExtendIcon = 'L.Marker.Pin.img/ArrowBottom.png';
+					_MinimizeButtonId = 'PinControl-ArrowTopRightButton';
+					_MaximizeButtonId = 'PinControl-ArrowBottomLeftButton';
+					_ReduceButtonId = 'PinControl-ArrowTopButton';
+					_ExtendButtonId = 'PinControl-ArrowBottomButton';
 					break;
 					case 'bottomright':
-					_MinimizeIcon = 'L.Marker.Pin.img/ArrowBottomRight.png';
-					_MaximizeIcon = 'L.Marker.Pin.img/ArrowTopLeft.png';
-					_ReduceIcon = 'L.Marker.Pin.img/ArrowBottom.png';
-					_ExtendIcon = 'L.Marker.Pin.img/ArrowTop.png';
+					_MinimizeButtonId = 'PinControl-ArrowBottomRightButton';
+					_MaximizeButtonId = 'PinControl-ArrowTopLeftButton';
+					_ReduceButtonId = 'PinControl-ArrowBottomButton';
+					_ExtendButtonId = 'PinControl-ArrowTopButton';
 					_ButtonsOnTop = false;
 					break;
 					default:
-					_MinimizeIcon = 'L.Marker.Pin.img/ArrowBottomLeft.png';
-					_MaximizeIcon = 'L.Marker.Pin.img/ArrowTopRight.png';
-					_ReduceIcon = 'L.Marker.Pin.img/ArrowBottom.png';
-					_ExtendIcon = 'L.Marker.Pin.img/ArrowTop.png';
+					_MinimizeButtonId = 'PinControl-ArrowBottomLeftButton';
+					_MaximizeButtonId = 'PinControl-ArrowTopRightButton';
+					_ReduceButtonId = 'PinControl-ArrowBottomRightButton';
+					_ExtendButtonId = 'PinControl-ArrowTopButton';
 					_ButtonsOnTop = false;
 					break;
 				}
