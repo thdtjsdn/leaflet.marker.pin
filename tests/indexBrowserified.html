@@ -119,8 +119,31 @@
 				
 				var myInterface = L.marker.pin.interface ( );
 				
-				myInterface.UserLanguage = 'fr';
+				myInterface.UserLanguage = 'en';
 				myInterface.addDefaultCategories ( );
+				myInterface.addCategory ( 
+					'DivIcon', 
+					{ 'en' : 'Category with L.DivIcon sample', 'fr' : 'Exemple de catégorie avec L.DivIcon' }, 
+					L.divIcon ( { 
+						iconSize: [220, 150], 
+						iconAnchor: [110, 75], 
+						popupAnchor: [0, -10], 
+						html : '<div style="text-align: center"><img src="leaf-orange.png" /><br />Category made with L.DivIcon</div>'
+					} ) );
+
+				myInterface.addCategory ( 
+					'Icon', 
+					{ 'en' : 'Leaflet red', 'fr' : 'Leaflet rouge' }, 
+					L.icon( {
+						iconUrl: 'leaf-red.png',
+						shadowUrl: 'leaf-shadow.png',
+						iconSize:     [38, 95],
+						shadowSize:   [50, 64],
+						iconAnchor:   [22, 94],
+						shadowAnchor: [4, 62],
+						popupAnchor:  [-3, -76]
+					} ) );				
+					
 				myInterface.setCallbackFunction ( 
 					function ( ) { 
 						if (document.getElementById)
