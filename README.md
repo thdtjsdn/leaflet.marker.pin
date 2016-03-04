@@ -35,7 +35,7 @@ Pins can be dragged on the map.
 
 ## Zoom on the pins
 
-Use the button <img src="dist/L.Marker.Pin.img/zoombounds.png" /> to zoom on the pins
+Use the button <img src="dist/L.Marker.Pin.img/control/zoombounds.png" /> to zoom on the pins
 
 ##View or hide the control
 
