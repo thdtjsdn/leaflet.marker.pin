@@ -1,0 +1,37 @@
+body
+{
+	margin-left: calc(50% - 50em / 2);
+	margin-right: calc(50% - 50em / 2);
+	font-family: sans-serif;
+}
+.Pin-Print-Main
+{
+	width: 50em;
+}
+.Pin-Print-Pin
+{
+	margin-top: 1em;
+	padding: 1em;
+	border : solid;
+	border-width: 0.1em;
+	
+}
+.Pin-Print-Category
+{
+	margin-top: 1em;
+	font-weight: bold;
+	font-size: 125%;
+}
+.Pin-Print-Text,
+.Pin-Print-Address,
+.Pin-Print-Phone,
+.Pin-Print-Url
+{
+	margin-top: 1em;
+	overflow: hidden;
+}
+#Copyright
+{
+	margin-top: 2em;
+	font-size: 80%;
+}

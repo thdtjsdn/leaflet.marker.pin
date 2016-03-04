@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+		<title>leaflet.marker.pin by wwwouaiebe - preview</title>
+		<meta name="author" content="Christian Guyette" />
+		<link rel="stylesheet" href="view.css" media="screen"/>
+		<link rel="stylesheet" href="L.Marker.Pin.css" media="screen"/>
+		<link rel="stylesheet" href="viewprint.css" media="print"/>
+	</head>
+	<body>
+		<h1>Pins:</h1>
+		<div id="PinsDiv"><div>Due to security reasons of your navigator, this page is not available (cookkies disabled?)</div></div>
+		<div id="Copyright">
+			This page is realized with <a href="http://leafletjs.com/" title="http://leafletjs.com/">leaflet</a>
+			and <a href="https://github.com/wwwouaiebe/leaflet.marker.pin" title="https://github.com/wwwouaiebe/leaflet.marker.pin">
+			leaflet.marker.pin</a>. - &copy; Christian Guyette 2016.
+		</div>
+		<script>
+			var PinsDivElement = document.getElementById ( 'PinsDiv' );
+			PinsDivElement.innerHTML = localStorage.getItem ( 'PinsHtml' ); 
+			window.addEventListener(
+				'storage', 
+				function(e) { 
+					document.getElementById ( 'PinsDiv' ).innerHTML = localStorage.getItem ( 'PinsHtml' );
+				}
+			);
+		</script>
+	</body>
+</html>

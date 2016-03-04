@@ -1,3 +1,5 @@
+/* contextmenu  and edit dialog */
+
 .PinMenu >div,
 .PinEditDialog > div
 {
@@ -41,4 +43,222 @@ div.PinEditDialog-MainDiv > div > select
 {
 	width: 200px;
 	display: block;
+}
+
+/* control */
+
+.PinControl-MainDiv
+{
+	background-color: gainsboro;
+	width: auto;
+	height : auto;	
+}
+.PinControl-Pins
+{
+	width: auto;
+	min-width: 20em;
+	max-width: 35em;
+	height: auto;
+	max-height: 400px;
+	overflow: auto;
+	background-color : white;
+	border-style : solid;
+	border-width : 0.1em;
+	margin: 0.5em;
+}
+.PinControl-Buttons
+{
+	background-color : white;
+	border-style : solid;
+	border-width : 0.1em;
+	margin: 0.5em;
+	text-align: center;
+}
+.PinControl-Pin
+{
+	padding: 1em;
+	border-bottom-style: solid;
+	border-bottom-width: 0.01em;
+}
+.PinControl-Pin:hover
+{
+	background-color : 	lightblue;
+}
+#PinControl-ZoomBoundsButton
+{
+	background-image : url('L.Marker.Pin.img/control/zoombounds.png');
+}
+#PinControl-ArrowTopLeftButton
+{
+	background-image : url('L.Marker.Pin.img/control/ArrowTopLeft.png');
+}
+#PinControl-ArrowTopRightButton
+{
+	background-image : url('L.Marker.Pin.img/control/ArrowTopRight.png');
+}
+#PinControl-ArrowBottomLeftButton
+{
+	background-image : url('L.Marker.Pin.img/control/ArrowBottomLeft.png');
+}
+#PinControl-ArrowBottomRightButton
+{
+	background-image : url('L.Marker.Pin.img/control/ArrowBottomRight.png');
+}
+#PinControl-ArrowTopButton
+{
+	background-image : url('L.Marker.Pin.img/control/ArrowTop.png');
+}
+#PinControl-ArrowBottomButton
+{
+	background-image : url('L.Marker.Pin.img/control/ArrowBottom.png');
+}
+.PinControl-Button
+{
+	background-repeat : no-repeat;
+	height: 34px;
+	width: 34px;
+    display: inline-block;
+	border-style: solid;
+	border-top-width : 1px;
+	border-left-width : 1px;
+	border-bottom-width : 3px;
+	border-right-width : 3px;
+	border-color : gainsboro;
+	padding: 1px;
+	margin: 3px;
+	border-radius: 3px;
+}
+.PinControl-Button:hover
+{
+	border-color : black;
+}
+.PinControl-Button:active
+{
+	border-top-width : 3px;
+	border-left-width : 3px;
+	border-bottom-width : 1px;
+	border-right-width : 1px;
+	border-color : black;
+}
+
+/* Pins for default categories */
+
+.Pin-Icon 
+{
+	background-repeat : no-repeat;
+	height: 40px;
+	width: 40px;
+    display: inline-block;
+}
+.Pin-Category-0001
+{
+	background-image : url('L.Marker.Pin.img/categories/0001.png');
+}
+.Pin-Category-0002
+{
+	background-image : url('L.Marker.Pin.img/categories/0002.png');
+}
+.Pin-Category-0003
+{
+	background-image : url('L.Marker.Pin.img/categories/0003.png');
+}
+.Pin-Category-0004
+{
+	background-image : url('L.Marker.Pin.img/categories/0004.png');
+}
+.Pin-Category-0005
+{
+	background-image : url('L.Marker.Pin.img/categories/0005.png');
+}
+.Pin-Category-0006
+{
+	background-image : url('L.Marker.Pin.img/categories/0006.png');
+}
+.Pin-Category-0007
+{
+	background-image : url('L.Marker.Pin.img/categories/0007.png');
+}
+.Pin-Category-0008
+{
+	background-image : url('L.Marker.Pin.img/categories/0008.png');
+}
+.Pin-Category-0009
+{
+	background-image : url('L.Marker.Pin.img/categories/0009.png');
+}
+.Pin-Category-0010
+{
+	background-image : url('L.Marker.Pin.img/categories/0010.png');
+}
+.Pin-Category-0011
+{
+	background-image : url('L.Marker.Pin.img/categories/0011.png');
+}
+.Pin-Category-0012
+{
+	background-image : url('L.Marker.Pin.img/categories/0012.png');
+}
+.Pin-Category-0013
+{
+	background-image : url('L.Marker.Pin.img/categories/0013.png');
+}
+.Pin-Category-0014
+{
+	background-image : url('L.Marker.Pin.img/categories/0014.png');
+}
+.Pin-Category-0015
+{
+	background-image : url('L.Marker.Pin.img/categories/0015.png');
+}
+.Pin-Category-0016
+{
+	background-image : url('L.Marker.Pin.img/categories/0016.png');
+}
+.Pin-Category-0017
+{
+	background-image : url('L.Marker.Pin.img/categories/0017.png');
+}
+.Pin-Category-0018
+{
+	background-image : url('L.Marker.Pin.img/categories/0018.png');
+}
+.Pin-Category-0019
+{
+	background-image : url('L.Marker.Pin.img/categories/0019.png');
+}
+.Pin-Category-0020
+{
+	background-image : url('L.Marker.Pin.img/categories/0020.png');
+}
+.Pin-Category-0021
+{
+	background-image : url('L.Marker.Pin.img/categories/0021.png');
+}
+.Pin-Category-0022
+{
+	background-image : url('L.Marker.Pin.img/categories/0022.png');
+}
+.Pin-Category-0023
+{
+	background-image : url('L.Marker.Pin.img/categories/0023.png');
+}
+.Pin-Category-0024
+{
+	background-image : url('L.Marker.Pin.img/categories/0024.png');
+}
+.Pin-Category-0025
+{
+	background-image : url('L.Marker.Pin.img/categories/0025.png');
+}
+.Pin-Category-0026
+{
+	background-image : url('L.Marker.Pin.img/categories/0026.png');
+}
+.Pin-Category-0027
+{
+	background-image : url('L.Marker.Pin.img/categories/0027.png');
+}
+.Pin-Category-0028
+{
+	background-image : url('L.Marker.Pin.img/categories/0028.png');
 }

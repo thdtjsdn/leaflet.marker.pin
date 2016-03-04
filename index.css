@@ -14,11 +14,11 @@ html > body > header
 html > body > header > nav > div#Help,
 html > body > header > nav > div#View
 {
-	margin-top: 5em;
+	margin-top: 3em;
 }
 html > body > header > nav > div#Download
 {
-	margin-top: 5em;
+	margin-top: 3em;
 	padding: 0.8em;
 	background-color : black;
 }
