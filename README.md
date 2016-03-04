@@ -1,7 +1,3 @@
-# Warning
-
-The files in this branch are under development. Unstable version !!!
-
 # leaflet.marker.pin
 
 Pins for leaflet are markers that can be added, edited or deleted directly on the map from the web page. 
@@ -35,6 +31,37 @@ Right click on the pin and select **Delete this pin** in the context menu.
 
 Pins can be dragged on the map.
 
+### Using the control
+
+## Zoom on the pins
+
+Use the button <img src="dist/L.Marker.Pin.img/zoombounds.png" /> to zoom on the pins
+
+##View or hide the control
+
+Use the buttons ![Arrow Top Right](dist/L.Marker.Pin.img/ArrowTopRight.png) ![Arrow Top Left](dist/L.Marker.Pin.img/ArrowTopLeft.png)
+![Arrow Bottom Right](dist/L.Marker.Pin.img/ArrowBottomRight.png) ![Arrow Bottom Left](dist/L.Marker.Pin.img/ArrowBottomLeft.png) to open or close the control.
+
+##Extend or reduce the size of the control
+
+Use the buttons ![Arrow Top](dist/L.Marker.Pin.img/ArrowTop.png) ![Arrow Bottom](dist/L.Marker.Pin.img/ArrowBottom.png) to extend or reduce the size of the control.
+
+## Zoom to a pin from the control
+
+Right or left click on a pin description in the control to zoom on the pin.
+
+## Edit a pin from the control
+
+Double click on a pin description in the control to zoom on the pin and start the editor.
+
+## Reorder the pins
+
+Drag and drop the pin description in the control to reorder the pins.
+
+### Display a page with the pins description
+
+The 'View' button on the left opens a new page with the pins description. This page is updated each time a pin is modified, added or deleted.
+
 ## What's you have to do in your html page?
 
 First have a look on the demo source page:
@@ -60,12 +87,14 @@ First have a look on the demo source page:
 				var myInterface = L.marker.pin.interface ( );
 				
 				myInterface.UserLanguage = 'en';
+				
 				myInterface.addDefaultCategories ( );
 				
 				myInterface.setCallbackFunction ( function ( ) { history.pushState ( { index : "bar" } , "page", '?pin=' + myInterface.stringifyPins ( ) );	});
 
 				var Map = L.map ( 'Map' ).setView( [ 50.49680, 5.51116 ], 13 );
 				L.tileLayer ( 'http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" title="Contributeurs de OpenStreetMap">Contributeurs de OpenStreetMap</a> | &copy; <a href="http://www.ouaie.be/" title="http://www.ouaie.be/">Christian Guyette</a>' } ).addTo ( Map );
+
 				Map.on ( 'click', function ( Event ) { myInterface.newPin ( Map, Event.latlng )} );
 				Map.on ( 'contextmenu', function ( Event ) { myInterface.newPin ( Map, Event.latlng )} ); 
 
@@ -110,7 +139,10 @@ In the head of the html file you have to load the *L.Marker.Pin.css* style sheet
 ## What's you have to do in your JavaScript?
 
 All the interaction is performed with a single instance of the object L.Marker.Pin.Interface. An instance of this object can
-be accessed with the function L.marker.pin.interface ( ).
+be accessed with the function L.marker.pin.interface ( ). 
+
+The L.marker.pin.interface ( ) is based on the singleton pattern, so the function returns always the same instance. You can save this instance
+in a variable, but it's not mandatory.
 
 ### Language settings
 
@@ -125,7 +157,7 @@ For others languages than fr, nl or en, use first the addTranslation ( ) method 
 L.marker.pin.interface ( ).addTranslation ( 'L.Marker.Pin.Address',  'de', 'Lorem ipsum...' );
 ```
 
-### Using addTranslations and getText to translate messages outside L.marker.pin
+### Using addTranslations and getText to translate messages used outside L.marker.pin
 
 You can use the translation mechanism in L.marker.pin to translate others messages used in your own code.
 
@@ -184,7 +216,7 @@ L.marker.pin.interface ( ).parsePins ( PinsJsonString, Map );
 
 ### L.marker.pin.interface ( ) function
 
-the L.marker.pin.interface ( ) function returns an instance of the L.Marker.Pin.Interface object.
+the L.marker.pin.interface ( ) function returns a unique instance of the L.Marker.Pin.Interface object.
 
 ### addCategory ( CategoryId, CategoryNames, CategoryIcon ) method 
 
@@ -193,18 +225,49 @@ This method add a new category
 Parameters:
 
 - CategoryId : a unique identifier for the category. It's impossible to add a new category
-when another category uses already this unique identifier. Default categories are using '01' to '27'
-as unique identifiers. It's better to not use values between '28' and '99' to avoid problems with 
+when another category uses already this unique identifier. Default categories are using '01' to '28'
+as unique identifiers. It's better to not use values between '29' and '99' to avoid problems with 
 new default categories in the future.
 
 - CategoryNames : the names of the category in the different languages.
 Must be an object like this: { 'en' : 'Lorem ipsum', 'fr' : 'dolor sit amet', 'nl' : 'consectetur adipiscing', }
 
-- CategoryIcon : a L.Icon object used as icon for the pins created with this category
+- CategoryIcon : a L.Icon or L.DivIcon object used as icon for the pins created with this category
+
+Sample of code using a L.Icon and the leaf-red.png provided in the [leaflet tutorials](http://leafletjs.com/examples/custom-icons.html)
+
+```
+myInterface.addCategory ( 
+	'IconCategory', 
+	{ 'en' : 'Leaflet red', 'fr' : 'Leaflet rouge', 'nl' : 'Leaflet rood' }, 
+	L.icon( {
+		iconUrl: 'leaf-red.png',
+		shadowUrl: 'leaf-shadow.png',
+		iconSize:     [38, 95],
+		shadowSize:   [50, 64],
+		iconAnchor:   [22, 94],
+		shadowAnchor: [4, 62],
+		popupAnchor:  [-3, -76]
+	} ) );					
+```
+
+Sample of code using a L.Icon and the leaf-orange.png provided in the [leaflet tutorials](http://leafletjs.com/examples/custom-icons.html)
+```
+
+myInterface.addCategory ( 
+	'DivIconCategory', 
+	{ 'en' : 'Category with L.DivIcon sample', 'fr' : 'Exemple de catégorie avec L.DivIcon' }, 
+	L.divIcon ( { 
+		iconSize: [220, 150], 
+		iconAnchor: [110, 75], 
+		popupAnchor: [0, -10], 
+		html : '<div style="text-align: center"><img src="leaf-orange.png" /><br />Category made with L.DivIcon</div>'
+	} ) );
+```
 
 ### addDefaultCategories ( ) method
 
-This method add the 27 categories included in L.Marker.Pin
+This method add the 28 categories included in L.Marker.Pin
 		
 ### addTranslation ( TextId, Language, Translation ) method
 
@@ -230,7 +293,7 @@ Unique identifiers currently used:
 - for the 'edit pin dialog': 'L.Marker.Pin.EditDialog.PinModification', 'L.Marker.Pin.EditDialog.NewPin', 'L.Marker.Pin.EditDialog.Text',
 'L.Marker.Pin.EditDialog.Address', 'L.Marker.Pin.EditDialog.Phone', 'L.Marker.Pin.EditDialog.Link', 'L.Marker.Pin.EditDialog.Category',
 'L.Marker.Pin.EditDialog.Ok' and 'L.Marker.Pin.EditDialog.Cancel'
-- for the default categories from 01 to 27: 'L.Marker.Pin.Category.01' to 'L.Marker.Pin.Category.27'
+- for the default categories from 01 to 28: 'L.Marker.Pin.Category.01' to 'L.Marker.Pin.Category.28'
 
 ```
 Sample of translation to a new language:
@@ -255,8 +318,8 @@ Sample of translation to a new language:
 	L.marker.pin.interface ( ).addTranslation ( 'L.Marker.Pin.EditDialog.Cancel', 'de', 'Lorem ipsum...' );	
 	// ...for the default categories from 01 ...
 	L.marker.pin.interface ( ).addTranslation ( 'L.Marker.Pin.Category.01', 'de', 'Lorem ipsum...' );	
-	// ... to 27...
-	L.marker.pin.interface ( ).addTranslation ( 'L.Marker.Pin.Category.27', 'de', 'Lorem ipsum...' );	
+	// ... to 28...
+	L.marker.pin.interface ( ).addTranslation ( 'L.Marker.Pin.Category.28', 'de', 'Lorem ipsum...' );	
 ```
 
 ### addTranslations ( TextId, Translations ) method
