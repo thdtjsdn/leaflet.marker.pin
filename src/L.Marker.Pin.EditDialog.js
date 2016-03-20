@@ -201,6 +201,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				ContextMenu = L.marker.pin.contextmenu;
 			}
 			Pin.on ( 'contextmenu', ContextMenu ); 
+			Pin.on ( 'dblclick', ContextMenu);
 			Pin.on ( 'dragend', Pins.CallbackFunction ); 
 
 			if ( options.exist ) {
@@ -241,13 +242,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			_TextInput.id = 'TextInput';
 					
 			var AddressDiv = _createDiv ( 'PinEditDialog-AddressDiv', _MainDiv, _Translator.getText ('L.Marker.Pin.EditDialog.Address') + '&nbsp;:&nbsp;' );
-			_AddressInput = _createInput ( 'text', options.address, 'Havée du Renard Hout-si-Plou', AddressDiv );	
+			_AddressInput = _createInput ( 'text', options.address, '', AddressDiv );	
 
 			var PhoneDiv = _createDiv ( 'PinEditDialog-PhoneDiv', _MainDiv, _Translator.getText ('L.Marker.Pin.EditDialog.Phone') + '&nbsp;:&nbsp;' );
-			_PhoneInput = _createInput ( 'tel', options.phone, '+32 12 13 15 14', PhoneDiv );
+			_PhoneInput = _createInput ( 'tel', options.phone, '', PhoneDiv );
 
 			var UrlDiv = _createDiv ( 'PinEditDialog-UrlDiv', _MainDiv, _Translator.getText ('L.Marker.Pin.EditDialog.Link') + '&nbsp;:&nbsp;' );
-			_UrlInput = _createInput ( 'url', options.url, 'http://www.ouaie.be', UrlDiv );
+			_UrlInput = _createInput ( 'url', options.url, '', UrlDiv );
 			
 			// ...select...
 			var CategoryDiv = _createDiv ( 'PinEditDialog-CategoryDiv', _MainDiv, _Translator.getText ('L.Marker.Pin.EditDialog.Category') + '&nbsp:&nbsp;' );
@@ -401,7 +402,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					{
 						keepInView : true,
 						closeButton : true,
-						maxWidth : 400,
+						maxWidth : 600,
 						className : 'PinEditDialog'
 					}
 				).setContent ( _MainDiv ).setLatLng( latlng ).openOn( Map );

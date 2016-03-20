@@ -288,17 +288,23 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 	var _onClickMinMax = function ( MouseEvent ) { 
 		var PinsElement = document.getElementById ( 'PinControl-Pins' );
+		var ReduceButtonElement = 	document.getElementById ( _ReduceButtonId );
+		var ExtendButtonElement = 	document.getElementById ( _ExtendButtonId );
 		if ( PinsElement.style.visibility === "hidden" ) {
 			PinsElement.setAttribute ( "style", "visibility : visible; width: auto; min-width: 20em; height: auto; margin: 0.5em; max-height: "+ _MaxHeight +"px" );
 			MouseEvent.target.id = _MinimizeButtonId;
 			MouseEvent.target.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.MinimizeButton' ) );
 			PinsElement.dataset.minimized = 'no';
+			ReduceButtonElement.setAttribute ( "style", "visibility : visible; width: 34px; height: 34px; padding: 1px; margin: 3px;" );
+			ExtendButtonElement.setAttribute ( "style", "visibility : visible; width: 34px; height: 34px; padding: 1px; margin: 3px;" );
 		}
 		else {
 			PinsElement.setAttribute ( "style", "visibility : hidden; width: 0; min-width: 0; height: 0; margin: 0.5em;" );
 			MouseEvent.target.id = _MaximizeButtonId;
 			MouseEvent.target.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.MaximizeButton' ) );
 			PinsElement.dataset.minimized = 'yes';
+			ReduceButtonElement.setAttribute ( "style", "visibility : hidden; width: 0; height: 0; padding: 0; margin : 0" );
+			ExtendButtonElement.setAttribute ( "style", "visibility : hidden; width: 0; height: 0; padding: 0; margin : 0" );
 		}
 		MouseEvent.stopPropagation ( );
 	};
@@ -408,12 +414,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		ExtendButton.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.ExtendButton' ) );
 		ExtendButton.id = _ExtendButtonId;
 		L.DomEvent.on ( ExtendButton, 'click', _onClickExtend );
+		ExtendButton.setAttribute ( "style", "visibility : hidden; width: 0; height: 0; padding: 0; margin : 0" );
 
 		var ReduceButton = L.DomUtil.create ( 'div', 'PinControl-Button', ButtonsDiv );
 		ReduceButton.setAttribute ( 'title' , _Translator.getText ( 'L.Marker.Pin.Control.onAdd.ReduceButton' ) );
 		ReduceButton.id = _ReduceButtonId;
 		L.DomEvent.on ( ReduceButton, 'click', _onClickReduce );
-
+		ReduceButton.setAttribute ( "style", "visibility : hidden; width: 0; height: 0; padding: 0; margin : 0" );
+		
 		return ButtonsDiv;
 	};
 

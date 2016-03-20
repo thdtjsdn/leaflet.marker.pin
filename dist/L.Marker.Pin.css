@@ -1,12 +1,66 @@
 /* contextmenu  and edit dialog */
 
-.PinMenu >div,
+.PinMenu .leaflet-popup-content
+{
+	margin: 1px;
+}
+
+.PinMenu > div
+{
+	background-color: rgb(240,240,240);
+	border-style: solid;
+	border-radius: 0;
+	border-width : 1px;
+	z-index: 9999;
+}
+
+.PinMenu-EditPinButton,
+.PinMenu-DeletePinButton,
+.PinMenu-CancelPinButton
+{
+	text-align: center;
+	width: 150px;
+	display: block;
+	border-style: solid;
+	border-top-color: lightgray;
+	border-left-color: lightgray;
+	border-bottom-color: darkgray;
+	border-right-color: darkgray;
+	border-top-width: 1px;
+	border-left-width: 1px;
+	border-bottom-width : 1px;
+	border-right-width : 1px;
+	padding-top: 2px;
+	padding-left: 2px;
+	padding-bottom: 2px;
+	padding-right: 2px; 
+	margin-bottom: 3px;
+	background: linear-gradient(lightgray, white);
+}
+
+.PinMenu-EditPinButton:hover,
+.PinMenu-DeletePinButton:hover,
+.PinMenu-CancelPinButton:hover
+{
+	color:	black;
+	border-color: black;
+	border-top-width: 1px;
+	border-left-width: 1px;
+	border-bottom-width : 2px;
+	border-right-width : 2px;
+	padding-top: 2px;
+	padding-left: 2px;
+	padding-bottom: 1px;
+	padding-right: 1px; 
+	background: linear-gradient(white,lightgray);
+}
+
 .PinEditDialog > div
 {
 	background-color: rgb(240,240,240);
 	border-radius: 0;
 	border-style: solid;
-	border-width : 0.1em;
+	border-width : 1px;
 	z-index: 9999;
 }
 .leaflet-container.leaflet-fade-anim > div.leaflet-map-pane > div.leaflet-objects-pane > div.leaflet-popup-pane > div.leaflet-popup.PinMenu.leaflet-zoom-animated > div.leaflet-popup-tip-container,
@@ -27,22 +81,44 @@ div.PinEditDialog-MainDiv > div
 	font-weight: normal;
 	font-size: medium;
 }
-div.PinEditDialog-MainDiv > div > input,
+div.PinEditDialog-MainDiv > div > input
+{
+	width: 40em;
+}
 div.PinEditDialog-MainDiv > div > select
 {
-	width: 16em;
+	width: 40.5em;
 }
 .PinEditDialog-OkButton,
 .PinEditDialog-CancelButton
 {
 	width: 8em;
 }
-.PinMenu-EditPinButton,
-.PinMenu-DeletePinButton,
-.PinMenu-CancelPinButton
+
+@media screen and (min-width: 1px) and (max-width: 600px)
 {
-	width: 200px;
-	display: block;
+	div.PinEditDialog-MainDiv > div
+	{
+		text-align: left;
+		padding: 0.1em;
+		font-weight: normal;
+		font-size: medium;
+	}
+	div.PinEditDialog-MainDiv > div > input
+	{
+		display: block;
+		width: 15.5em;
+	}
+	div.PinEditDialog-MainDiv > div > select
+	{
+		display: block;
+		width: 16em;
+	}	
+	.PinEditDialog-OkButton,
+	.PinEditDialog-CancelButton
+	{
+		margin-top: 1em;
+	}	
 }
 
 /* control */

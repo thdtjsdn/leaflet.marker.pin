@@ -131,8 +131,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 		L.popup (
 			{
 				keepInView : true,
-				closeButton : true,
-				maxWidth : 400,
+				closeButton : false,
+				maxWidth : 300,
 				className : 'PinMenu'
 			}
 		).setContent ( MainDiv ).setLatLng( Pin.getLatLng ( ) ).openOn( Map );
