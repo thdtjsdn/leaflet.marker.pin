@@ -2,7 +2,7 @@
 
 Pins for leaflet are markers that can be added, edited or deleted directly on the map from the web page. 
 
-## Warnig
+## Warning
 
 This branch is not stable! Development on going!
 
