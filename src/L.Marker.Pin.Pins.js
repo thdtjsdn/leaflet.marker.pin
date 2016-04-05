@@ -145,8 +145,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					if ( options.textClass ) {
 						TextElement.className = options.textClass;
 					}
-					var TextNode = document.createTextNode ( Pin.options.text );
-					TextElement.appendChild ( TextNode );
+					TextElement.innerHTML = Pin.options.text;
 					PinElement.appendChild ( TextElement );
 				}
 
@@ -156,8 +155,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					if ( options.addressClass ) {
 						AddressElement.className = options.addressClass;
 					}
-					var AddressNode = document.createTextNode ( _Translator.getText ( 'L.Marker.Pin.Pins.asHtmlElement.Address' ) + Pin.options.address );
-					AddressElement.appendChild ( AddressNode );
+					AddressElement.innerHTML = _Translator.getText ( 'L.Marker.Pin.Pins.asHtmlElement.Address' ) + Pin.options.address;
 					PinElement.appendChild ( AddressElement );
 				}
 
@@ -167,8 +165,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 					if ( options.phoneClass ) {
 						PhoneElement.className = options.phoneClass;
 					}
-					var PhoneNode = document.createTextNode ( _Translator.getText ( 'L.Marker.Pin.Pins.asHtmlElement.Phone' ) + Pin.options.phone );
-					PhoneElement.appendChild ( PhoneNode );
+					PhoneElement.innerHTML = _Translator.getText ( 'L.Marker.Pin.Pins.asHtmlElement.Phone' ) + Pin.options.phone;
 					PinElement.appendChild ( PhoneElement );
 				}
 
