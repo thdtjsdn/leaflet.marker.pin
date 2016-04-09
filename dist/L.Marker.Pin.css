@@ -83,11 +83,11 @@ div.PinEditDialog-MainDiv > div
 }
 div.PinEditDialog-MainDiv > div > input
 {
-	width: 40em;
+	width: 36em;
 }
 div.PinEditDialog-MainDiv > div > select
 {
-	width: 40.5em;
+	width: 36.5em;
 }
 .PinEditDialog-OkButton,
 .PinEditDialog-CancelButton

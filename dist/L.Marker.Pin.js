@@ -1297,7 +1297,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			Pin.on ( 'contextmenu', ContextMenu ); 
 			Pin.on ( 'dblclick', ContextMenu);
 			Pin.on ( 'dragend', Pins.CallbackFunction ); 
-
+			
 			if ( options.exist ) {
 				// The dialog was open for edition. The old pin is 
 				// removed from the map and from the pin's collection
@@ -1799,6 +1799,28 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			parsePins : function ( PinsJsonString, Map ) {
 				_Pins.parse ( PinsJsonString, Map );
 			},
+			
+			/* 
+			--- toGeoJSON ( ) method --- 
+			
+			This method returns the pins as a GeoJSON object
+
+			*/
+
+			toGeoJSON : function ( ) {
+				return _Pins.toGeoJSON ( );
+			},
+
+			/* 
+			--- pointToLayer ( ) method --- 
+			
+			This method must be used to recreate the pins from a L.geoJson object
+
+			*/
+			
+			pointToLayer: function ( feature, latlng ) {
+				return _Pins.pointToLayer ( feature, latlng ) ;
+			},
 	
 			/* --- public properties --- */
 			
@@ -1972,6 +1994,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			_Translator = L.marker.pin.translator ( );
 		}
 
+		var _Categories;
+		if ( typeof module !== 'undefined' && module.exports ) {
+			_Categories = require ('./L.Marker.Pin.Categories' );
+		}
+		else {
+			_Categories = L.marker.pin.categories ( );
+		}
+		
 		/* --- private methods --- */
 
 		/* 
@@ -2236,7 +2266,58 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				
 				return -1;
 			},
+			
 
+			/* 
+			--- pointToLayer ( feature, latlng ) method --- 
+			
+			this method add a pin to the collection from GeoJSON feature
+			
+			Parameters : 
+			- feature : the GeoJSON object with pin's data 
+			- latlng : the position of the pin
+			
+			Return :
+			- a new pin to add to the map
+
+			*/
+
+			pointToLayer: function ( feature, latlng ) {
+				var Pin = L.marker.pin ( 
+					latlng,
+					{
+						"text" : feature.properties.text,
+						"phone" : feature.properties.phone,
+						"url" : feature.properties.url,
+						"address" : feature.properties.address,
+						"pinCategory" : _Categories.getCategory ( feature.properties.categoryId ),
+						"icon" : _Categories.getCategory ( feature.properties.categoryId ).CategoryIcon,
+						"draggable" : true,
+						"className" : 'Pin',
+						"title" : _Categories.getCategory ( feature.properties.categoryId ).CategoryName,
+					}
+				);
+
+				Pin.bindPopup ( Pin.getHtml ( ) );
+				
+				var ContextMenu;
+				if ( typeof module !== 'undefined' && module.exports ) {
+					ContextMenu = require ('./L.Marker.Pin.ContextMenu' );
+				}
+				else {
+					ContextMenu = L.marker.pin.contextmenu;
+				}
+				
+				Pin.on ( 'add', function ( event ) {this.options.map = event.target._map;} );
+				Pin.on ( 'contextmenu', ContextMenu ); 
+				Pin.on ( 'dblclick', ContextMenu);
+				Pin.on ( 'dragend', this.CallbackFunction ); 
+				
+				this.push ( Pin );
+				
+				return Pin;
+			},
+			
 			/* 
 			--- order ( OldPos, NewPos, AfterNewPos ) method --- 
 
@@ -2419,6 +2500,26 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			asHtmlElement : function ( options ) {
 				return _asHtmlElement ( options );
 			},
+			
+			/* 
+			--- toGeoJSON ( ) method --- 
+			
+			This method returns the pins as a GeoJSON object
+
+			*/
+
+			toGeoJSON : function ( ) {
+				var Features = [];
+				for ( var Counter = 0; Counter < _Pins.length; Counter++) {
+					Features.push ( _Pins [ Counter ].toGeoJSON ( ) );
+				}
+				
+				return {
+					"type": "FeatureCollection",
+					"features" : Features
+				};
+				
+			},
 		
 			/* --- public properties --- */
 
@@ -2434,7 +2535,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 				var PinsLatLng = [];
 				for ( var Counter = 0; Counter < _Pins.length; Counter++) {
 					PinsLatLng.push ( _Pins [ Counter ].getLatLng ( ) );
-					 
 				}
 				
 				return L.latLngBounds(  PinsLatLng ); 
@@ -2464,7 +2564,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 }) ( );	
 
-},{"./L.Marker.Pin.ContextMenu":3,"./L.Marker.Pin.Translator":8}],8:[function(require,module,exports){
+},{"./L.Marker.Pin.Categories":1,"./L.Marker.Pin.ContextMenu":3,"./L.Marker.Pin.Translator":8}],8:[function(require,module,exports){
 /*
 Copyright - 2015 2016 - Christian Guyette - Contact: http//www.ouaie.be/
 
@@ -2874,6 +2974,30 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 						this.options.url.slice ( 0, 50 ) +'</a>';
 				}
 				return HtmlText;
+			},
+
+			/* 
+			--- toGeoJSON ( ) method --- 
+			
+			This method returns the pin as a GeoJSON object
+
+			*/
+
+			toGeoJSON : function ( ) {
+				return {
+					"type" : "Feature",
+					"geometry" : {
+						"type" : "Point",
+						"coordinates" : [ this.getLatLng().lng, this.getLatLng().lat ]
+					},	
+					"properties" : {
+						"text" : this.options.text ? this.options.text : "",
+						"address" : this.options.address ? this.options.address : "",
+						"phone" : this.options.phone ? this.options.phone : "",
+						"url" : this.options.url ? this.options.url : "",
+						"categoryId" : this.options.pinCategory.CategoryId ? this.options.pinCategory.CategoryId : ""
+					}
+				};
 			}
 		}
 	);

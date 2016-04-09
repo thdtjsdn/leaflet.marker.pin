@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+		<title>leaflet.marker.pin by wwwouaiebe</title>
+		<meta name="author" content="Christian Guyette" />
+		<link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css" />
+		<link rel="stylesheet" href="../dist/L.Marker.Pin.css"/>
+		<link rel="stylesheet" href="index.css" media="screen"/>
+		<link rel="stylesheet" href="indexprint.css" media="print"/>
+	</head>
+	<body>
+		<header>
+			<nav id="Menu">
+				<div id="Help" class="MenuItem">
+					<a>Help</a>
+					<div>
+						<h3>Add a pin</h3>
+						<p>
+							Click on the map with the left or right mouse button and complete the dialog box with your data. Finish with the OK button.
+						</p>
+						<h3>View a pin content</h3>
+						<p>
+							Click on the pin with the left mouse button.
+						</p>
+						<h3>Edit a pin content</h3>
+						<p>
+							Click on the pin with the right mouse button, choose 'Edit this pin' in the context menu and change your data.
+						</p>
+						<h3>Remove a pin</h3>
+						<p>
+							Click on the pin with the right mouse button and choose 'Delete this pin'.
+						</p>
+						<h3>Move a pin</h3>
+						<p>
+							Drag and drop the pin on the map.
+						</p>
+						<h3>Using the control</h3>
+						<h4>Zoom on the pins</h4>
+						<p>Use the button <img src="L.Marker.Pin.img/zoombounds.png" /> to zoom on the pins </p>
+						<h4>View or hide the control</h4>
+						<p>
+							Use the buttons 
+							<img src="L.Marker.Pin.img/ArrowTopRight.png" />
+							<img src="L.Marker.Pin.img/ArrowTopLeft.png" />
+							<img src="L.Marker.Pin.img/ArrowBottomRight.png" /> or
+							<img src="L.Marker.Pin.img/ArrowBottomLeft.png" /> 
+							to open or close the control.
+						</p>
+						<h4>Extend or reduce the size of the control</h4>
+						<p>
+							Use the buttons 
+							<img src="L.Marker.Pin.img/ArrowTop.png" /> or
+							<img src="L.Marker.Pin.img/ArrowBottom.png" />
+							to extend or reduce the size of the control.
+						</p>
+						<h4>Zoom to a pin from the control</h4>
+						<p>Right or left click on a pin description in the control to zoom on the pin.</p>
+						<h4>Edit a pin from the control</h4>
+						<p>Double click on a pin description in the control to zoom on the pin and start the editor.</p>
+						<h4>Reorder the pins</h4>
+						<p>Drag and drop the pin description in the control to reorder the pins.</p>
+						<h3>Display a page with the pins description.</h3>
+						<p>The View button on the left opens a new page with the pins description. This page is updated each time a pin is modified, added or deleted.</p>
+						<h3>Save the pins</h3>
+						<p>
+							In this sample the pins are saved in the search part of the page url. Look the URL when you add, edit, delete or remove a pin.
+						</p>
+						<h3>Restore the pins</h3>
+						<p>
+							Copy the URL in the address bar and paste it in a new window. Pins are restored on the map.
+						</p>
+					</div>
+				</div>
+				<div id="View" class="MenuItem">
+					<a href="view.html" target="_blank">View</a>
+				</div>
+				<div id="View" class="MenuItem">
+					<a href="https://github.com/wwwouaiebe/leaflet.marker.pin">View On GitHub</a>
+				</div>
+				<div id="Download" class="MenuItem">
+					Download:
+				</div>
+				<div class="MenuItem">
+					<a href="https://github.com/wwwouaiebe/leaflet.marker.pin/zipball/master">ZIP</a>
+				</div>
+				<div class="MenuItem">
+					<a href="https://github.com/wwwouaiebe/leaflet.marker.pin/tarball/master">TAR</a>
+				</div>
+			</nav>
+		</header>
+		<div id="Map">
+		</div>
+		<div id="PinsContent">
+			<div></div>
+		</div>
+		<script src="../node_modules/leaflet/dist/leaflet.js"></script>
+		<script src="../src/L.Marker.Pin.js"></script>
+		<script src="../src/L.Marker.Pin.Translator.js"></script>
+		<script src="../src/L.Marker.Pin.Pins.js"></script>
+		<script src="../src/L.Marker.Pin.Category.js"></script>
+		<script src="../src/L.Marker.Pin.Categories.js"></script>
+		<script src="../src/L.Marker.Pin.ContextMenu.js"></script>
+		<script src="../src/L.Marker.Pin.EditDialog.js"></script>
+		<script src="../src/L.Marker.Pin.Control.js"></script>
+		<script src="../src/L.Marker.Pin.Interface.js"></script>
+		<script>
+			(function() 
+			{
+				'use strict';
+
+				function storageAvailable ( type ) {
+					try {
+						var storage = window [ type ],
+							x = '__storage_test__';
+						storage.setItem ( x, x );
+						storage.removeItem ( x );
+						return true;
+					}
+					catch ( e ) {
+						return false;
+					}
+				}
+				
+				
+				var myInterface = L.marker.pin.interface ( );
+				
+				myInterface.UserLanguage = 'en';
+				myInterface.addDefaultCategories ( );
+				myInterface.addCategory ( 
+					'DivIcon', 
+					{ 'en' : 'Category with L.DivIcon sample', 'fr' : 'Exemple de catégorie avec L.DivIcon' }, 
+					L.divIcon ( { 
+						iconSize: [220, 150], 
+						iconAnchor: [110, 75], 
+						popupAnchor: [0, -10], 
+						html : '<div style="text-align: center"><img src="leaf-orange.png" /><br />Category made with L.DivIcon</div>'
+					} ) );
+
+				myInterface.addCategory ( 
+					'Icon', 
+					{ 'en' : 'Leaflet red', 'fr' : 'Leaflet rouge' }, 
+					L.icon( {
+						iconUrl: 'leaf-red.png',
+						shadowUrl: 'leaf-shadow.png',
+						iconSize:     [38, 95],
+						shadowSize:   [50, 64],
+						iconAnchor:   [22, 94],
+						shadowAnchor: [4, 62],
+						popupAnchor:  [-3, -76]
+					} ) );					
+					
+				myInterface.setCallbackFunction ( 
+					function ( ) { 
+						if (document.getElementById)
+						{
+							var PinsElement = document.getElementById("PinsContent");
+							PinsElement.replaceChild ( myInterface.PinsHtmlElement, PinsElement.firstChild );
+							if ( storageAvailable ( 'localStorage' ) ) {
+								localStorage.setItem ( 'PinsHtml', myInterface.PinsHtmlElement.outerHTML );
+							}
+						}
+					}
+				);
+
+				var Map = L.map ( 'Map' ).setView( [ 50.49680, 5.51116 ], 13 );
+				L.tileLayer ( 'http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright" title="Contributeurs de OpenStreetMap">Contributeurs de OpenStreetMap</a> | &copy; <a href="http://www.ouaie.be/" title="http://www.ouaie.be/">Christian Guyette</a>' } ).addTo ( Map );
+				Map.on ( 'click', function ( Event ) { myInterface.newPin ( Map, Event.latlng )} );
+				Map.on ( 'contextmenu', function ( Event ) { myInterface.newPin ( Map, Event.latlng )} ); 
+
+				myInterface.addControl( Map, { position : 'bottomright' } );
+
+				var PinsElement = document.getElementById("PinsContent");
+				PinsElement.replaceChild ( myInterface.PinsHtmlElement, PinsElement.firstChild );
+				if ( storageAvailable ( 'localStorage' ) ) {
+					localStorage.setItem ( 'PinsHtml', myInterface.PinsHtmlElement.outerHTML );
+				}
+				var JsonTest1 = {
+					"type":"FeatureCollection",
+					"features":[
+						{
+							"type":"Feature",
+							"geometry":{
+								"type":"Point",
+								"coordinates":[5.522518157958984, 50.50960580602943]
+							},
+							"properties":{
+								"text":"",
+								"address":"Anthisnes",
+								"phone":"",
+								"url":"",
+								"categoryId":"01"
+							}
+						},
+						{
+							"type":"Feature",
+							"geometry":{
+								"type":"Point",
+								"coordinates":[5.491790771484374,50.50905996360123]
+							},
+							"properties":{
+								"text":"Test sample",
+								"address":"chemin du Sârt Anthisnes",
+								"phone":"+32 999 21 22 23",
+								"url":"http://www.ouaie.be/",
+								"categoryId":"04"
+							}
+						}
+					]
+				};
+				var JsonTest2 = {
+					"type":"FeatureCollection",
+					"features":[
+						{
+							"type":"Feature",
+							"geometry":{
+								"type":"Point",
+								"coordinates":[5.572518157958984, 50.50960580602943]
+							},
+							"properties":{
+								"text":"",
+								"address":"Esneux",
+								"phone":"",
+								"url":"",
+								"categoryId":"03"
+							}
+						},
+						{
+							"type":"Feature",
+							"geometry":{
+								"type":"Point",
+								"coordinates":[5.541790771484374,50.50905996360123]
+							},
+							"properties":{
+								"text":"Test sample",
+								"address":"rue de la Station Esneux",
+								"phone":"+32 999 21 22 23",
+								"url":"http://www.ouaie.be/",
+								"categoryId":"07"
+							}
+						}
+					]
+				};
+				L.geoJson( JsonTest1, { pointToLayer : myInterface.pointToLayer } ).addTo ( Map );	
+				L.geoJson( JsonTest2, { pointToLayer : myInterface.pointToLayer } ).addTo ( Map );	
+				
+				console.log ( myInterface.toGeoJSON ( ) ) ;
+				console.log ( '------------' );
+				console.log ( JSON.stringify ( L.marker.pin.interface ( ).toGeoJSON ( ) ) ) ;
+			}
+			());		
+		</script>
+	</body>
+</html>
+
+
+

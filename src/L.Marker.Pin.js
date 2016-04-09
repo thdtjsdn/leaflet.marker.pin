@@ -97,6 +97,30 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 						this.options.url.slice ( 0, 50 ) +'</a>';
 				}
 				return HtmlText;
+			},
+
+			/* 
+			--- toGeoJSON ( ) method --- 
+			
+			This method returns the pin as a GeoJSON object
+
+			*/
+
+			toGeoJSON : function ( ) {
+				return {
+					"type" : "Feature",
+					"geometry" : {
+						"type" : "Point",
+						"coordinates" : [ this.getLatLng().lng, this.getLatLng().lat ]
+					},	
+					"properties" : {
+						"text" : this.options.text ? this.options.text : "",
+						"address" : this.options.address ? this.options.address : "",
+						"phone" : this.options.phone ? this.options.phone : "",
+						"url" : this.options.url ? this.options.url : "",
+						"categoryId" : this.options.pinCategory.CategoryId ? this.options.pinCategory.CategoryId : ""
+					}
+				};
 			}
 		}
 	);

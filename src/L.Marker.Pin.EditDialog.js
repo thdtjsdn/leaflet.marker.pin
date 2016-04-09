@@ -203,7 +203,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 			Pin.on ( 'contextmenu', ContextMenu ); 
 			Pin.on ( 'dblclick', ContextMenu);
 			Pin.on ( 'dragend', Pins.CallbackFunction ); 
-
+			
 			if ( options.exist ) {
 				// The dialog was open for edition. The old pin is 
 				// removed from the map and from the pin's collection

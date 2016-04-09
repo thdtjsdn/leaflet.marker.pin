@@ -216,6 +216,14 @@ And restoring the pins is done by passing the JSON string given by the stringify
 L.marker.pin.interface ( ).parsePins ( PinsJsonString, Map );
 ```
 
+Persistence can also be done with GeoJSON objects. To save to pins as a GeoJSON object, use the method L.marker.pin.interface ( ).toGeoJSON ( ) method. Restoring
+the pins from a GeoJSON object is performed with the L.GeoJSON leaflet object and the L.marker.pin.interface ( ).pointToLayer ( ) method.
+```
+Sample of code to use:
+	L.geoJson( FeatureCollection, { pointToLayer : L.marker.pin.interface ( ).pointToLayer } ).addTo ( Map );	
+
+```
+
 ## L.Marker.Pin.Interface object documentation
 
 ### L.marker.pin.interface ( ) function
@@ -398,6 +406,56 @@ Parameters:
 
 - options the control options. See the leaflet control documentation
 
+### toGeoJSON ( ) method
+
+This method creates a GeoJSON object with the data present in the pins. This GeoJSON object can be used to restore the pins (see below pointToLayer )
+
+```
+Sample of GeoJSON object:
+{
+	"type":"FeatureCollection",
+	"features":[
+		{
+			"type":"Feature",
+			"geometry":{
+				"type":"Point",
+				"coordinates":[5.572518157958984, 50.50960580602943]
+			},
+			"properties":{
+				"text":"",
+				"address":"Esneux",
+				"phone":"",
+				"url":"",
+				"categoryId":"03"
+			}
+		},
+		{
+			"type":"Feature",
+			"geometry":{
+				"type":"Point",
+				"coordinates":[5.541790771484374,50.50905996360123]
+			},
+			"properties":{
+				"text":"Test sample",
+				"address":"rue de la Station Esneux",
+				"phone":"+32 999 21 22 23",
+				"url":"http://www.ouaie.be/",
+				"categoryId":"07"
+			}
+		}
+	]
+}
+```
+
+### pointToLayer: function ( feature, latlng )
+
+This method can be used with the L.geoJson object to add the pins from a GeoJSON object.
+
+```
+Sample of code to use:
+	L.geoJson( FeatureCollection, { pointToLayer : L.marker.pin.interface ( ).pointToLayer } ).addTo ( Map );	
+
+```
 
 ### Release property (read only)
 
